@@ -1,3 +1,16 @@
 npx sequelize --help
 npx sequelize init
 LEARN: Generic Type
+index.ts of sequelize: create process.env.NODE_ENV  to create environment
+
+* postgresql:
+\l: list all database
+
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+
+
+npx sequelize db:migrate 
+
+npx sequelize db:migrate:undo
+
+npx sequelize migration:create --name add-collumn-parentCategoryId
