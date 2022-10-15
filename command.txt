@@ -1,0 +1,3 @@
+npx sequelize --help
+npx sequelize init
+LEARN: Generic Type
