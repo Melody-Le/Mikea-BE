@@ -9,7 +9,7 @@ export interface CategoryAttributes {
   parentCategoryId?: number;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Category
+  class Categories
     extends Model<CategoryAttributes>
     implements CategoryAttributes
   {
@@ -22,14 +22,16 @@ module.exports = (sequelize: any, DataTypes: any) => {
     categoryLabel!: string;
     categorySlug!: string;
     parentCategoryId?: number;
-    static associate(models: any) {
+    static associate(models: any): void {
       // define association here
       // models.Category.belongsToMany(models.Category, {
-      //   through: "parentCategoryId",
+      //   through: "Category",
       // });
+      Categories.hasMany(models.Categories, { as: "subCategories" });
+      Categories.hasMany(models.Products);
     }
   }
-  Category.init(
+  Categories.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -51,18 +53,18 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: "Category",
+          model: "Categories",
           key: "id",
         },
       },
     },
     {
       sequelize,
-      modelName: "Category",
+      modelName: "Categories",
     }
   );
-  SequelizeSlugify.slugifyModel(Category, {
+  SequelizeSlugify.slugifyModel(Categories, {
     source: ["categoryLabel"],
   });
-  return Category;
+  return Categories;
 };

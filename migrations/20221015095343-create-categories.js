@@ -11,6 +11,21 @@ module.exports = {
       },
       categoryLabel: {
         type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      categorySlug: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      parentCategoryId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "Categories",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
