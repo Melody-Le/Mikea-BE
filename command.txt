@@ -14,3 +14,11 @@ npx sequelize db:migrate
 npx sequelize db:migrate:undo
 
 npx sequelize migration:create --name add-collumn-parentCategoryId
+
+SequelizeSlugify.slugifyModel(User, {source: ['name']});
+
+
+//BUG: 
+1. Can not import SequelizeSlugify
+2. Can not migrateData
+3. can not run seed , how to run specific file in ts
