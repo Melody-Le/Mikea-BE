@@ -12,7 +12,7 @@ npx sequelize-cli model:generate --name User --attributes firstName:string,lastN
 npx sequelize db:migrate 
 
 npx sequelize db:migrate:undo
-
+`
 npx sequelize migration:create --name add-collumn-parentCategoryId
 
 SequelizeSlugify.slugifyModel(User, {source: ['name']});

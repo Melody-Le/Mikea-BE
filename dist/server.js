@@ -25,6 +25,13 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
 async function init() {
     await assertDatabaseConnectionOk();
+    const newCat = await models_1.default.Categories.create({
+        id: 1,
+        categoryLabel: "Lighting",
+        categorySlug: "lighting",
+        parentCategory: undefined,
+        categoryId: 1,
+    });
     app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
 }
 init();

@@ -4,6 +4,8 @@ import { json } from "body-parser";
 import bodyParser from "body-parser";
 import db from "./models";
 
+import { categories } from "./seeds/categories";
+
 const app = express();
 const PORT = process.env.PORT || 8800;
 
@@ -24,8 +26,24 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
+// const createCategories = () => {
+//   categories.map((cat) => {
+//     db.Categories.create(cat);
+//   });
+// };
+// createCategories();
+
 async function init() {
   await assertDatabaseConnectionOk();
+
+  const newCat = await db.Categories.create({
+    id: 1,
+    categoryLabel: "Lighting",
+    categorySlug: "lighting",
+    parentCategory: undefined,
+    categoryId: 1,
+  });
+  // console.log(db.Categories);
 
   app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
 }

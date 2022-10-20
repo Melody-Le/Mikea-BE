@@ -4,7 +4,7 @@ import SequelizeSlugify from "sequelize-slugify";
 
 export interface ProductAttributes {
   id: number;
-  categoryId: Number;
+  categoryId: number;
   productName: string;
   productSlug: string;
   productDescription: string;
@@ -20,7 +20,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * The `models/index` file will call this method automatically.
      */
     id!: number;
-    categoryId!: Number;
+    categoryId!: number;
     productName!: string;
     productSlug!: string;
     productDescription!: string;
