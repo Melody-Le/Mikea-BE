@@ -9,14 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      // categoryId: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: "category",
-      //     key: "id",
-      //   },
-      // },
+      categoryId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "category",
+          key: "id",
+        },
+      },
       productName: {
         type: Sequelize.STRING,
         allowNull: false,

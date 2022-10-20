@@ -37,9 +37,8 @@ async function init() {
   await assertDatabaseConnectionOk();
 
   const newCat = await db.category.create({
-    // id: 2,
-    categoryLabel: "Chair And Sofas",
-    categorySlug: "chair-and-sofas",
+    categoryLabel: "kitchen",
+    categorySlug: "kitchen",
     parentCategory: null,
   });
 

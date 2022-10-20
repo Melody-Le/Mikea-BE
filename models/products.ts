@@ -3,7 +3,7 @@ import { Model } from "sequelize";
 import SequelizeSlugify from "sequelize-slugify";
 
 export interface ProductAttributes {
-  // categoryId: number;
+  categoryId: number;
   productName: string;
   productSlug: string;
   productDescription: string;
@@ -18,7 +18,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // categoryId!: number;
+    categoryId!: number;
     productName!: string;
     productSlug!: string;
     productDescription!: string;
@@ -26,19 +26,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
     room!: String;
     static associate(models: any): void {
       // define association here
-      // Product.belongsTo(models.category);
+      Product.belongsTo(models.category);
     }
   }
   Product.init(
     {
-      // categoryId: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      //   references: {
-      //     model: "category",
-      //     key: "id",
-      //   },
-      // },
+      categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       productName: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -20,7 +20,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     parentCategoryId?: number | null;
     static associate(models: any): void {
       Category.hasMany(models.category, { as: "subCategory" });
-      // Category.hasMany(models.Product); //FIXME: do I need to put associate here, or can put it inside product file?
+      Category.hasMany(models.Product); //FIXME: do I need to put associate here, or can put it inside product file?
     }
   }
   Category.init(

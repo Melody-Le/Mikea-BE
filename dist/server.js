@@ -26,8 +26,8 @@ app.use(express_1.default.json());
 async function init() {
     await assertDatabaseConnectionOk();
     const newCat = await models_1.default.category.create({
-        categoryLabel: "Chair And Sofas",
-        categorySlug: "chair-and-sofas",
+        categoryLabel: "kitchen",
+        categorySlug: "kitchen",
         parentCategory: null,
     });
     app.listen(PORT, () => console.log(`========> Server started at port ${PORT}`));

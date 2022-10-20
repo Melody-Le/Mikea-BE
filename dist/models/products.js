@@ -4,9 +4,14 @@ const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Product extends sequelize_1.Model {
         static associate(models) {
+            Product.belongsTo(models.category);
         }
     }
     Product.init({
+        categoryId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
         productName: {
             type: DataTypes.STRING,
             allowNull: false,
