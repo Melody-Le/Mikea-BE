@@ -60,7 +60,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     {
       sequelize,
-      modelName: "Product",
+      modelName: "product",
     }
   );
   // SequelizeSlugify.slugifyModel(Product, {
