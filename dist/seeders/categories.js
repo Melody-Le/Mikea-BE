@@ -19,32 +19,26 @@ class category {
 }
 exports.category = [
   {
-    id: 1,
     categoryLabel: "Tables And Desk",
     categorySlug: "table-and-desk",
   },
   {
-    id: 2,
     categoryLabel: "Chairs And Sofas",
     categorySlug: "chairs-and-sofas",
   },
   {
-    id: 3,
     categoryLabel: "Wadrobe",
     categorySlug: "wadrobe",
   },
   {
-    id: 4,
     categoryLabel: "Hometool",
     categorySlug: "hometool",
   },
   {
-    id: 5,
     categoryLabel: "Decoration",
     categorySlug: "decoration",
   },
   {
-    id: 5,
     categoryLabel: "Lighting",
     categorySlug: "lighting",
   },
