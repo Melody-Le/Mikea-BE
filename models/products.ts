@@ -3,8 +3,7 @@ import { Model } from "sequelize";
 import SequelizeSlugify from "sequelize-slugify";
 
 export interface ProductAttributes {
-  // id: number;
-  categoryId: number;
+  // categoryId: number;
   productName: string;
   productSlug: string;
   productDescription: string;
@@ -13,14 +12,13 @@ export interface ProductAttributes {
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Products extends Model<ProductAttributes> implements ProductAttributes {
+  class Product extends Model<ProductAttributes> implements ProductAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // id!: number;
-    categoryId!: number;
+    // categoryId!: number;
     productName!: string;
     productSlug!: string;
     productDescription!: string;
@@ -28,25 +26,19 @@ module.exports = (sequelize: any, DataTypes: any) => {
     room!: String;
     static associate(models: any): void {
       // define association here
-      Products.belongsTo(models.Categories);
+      // Product.belongsTo(models.category);
     }
   }
-  Products.init(
+  Product.init(
     {
-      // id: {
+      // categoryId: {
       //   type: DataTypes.INTEGER,
       //   allowNull: false,
-      //   primaryKey: true,
-      //   autoIncrement: true,
+      //   references: {
+      //     model: "category",
+      //     key: "id",
+      //   },
       // },
-      categoryId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "Categories",
-          key: "id",
-        },
-      },
       productName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -72,11 +64,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     {
       sequelize,
-      modelName: "Products",
+      modelName: "Product",
     }
   );
-  SequelizeSlugify.slugifyModel(Products, {
+  SequelizeSlugify.slugifyModel(Product, {
     source: ["productName"],
   });
-  return Products;
+  return Product;
 };

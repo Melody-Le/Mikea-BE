@@ -4,7 +4,7 @@ import { json } from "body-parser";
 import bodyParser from "body-parser";
 import db from "./models";
 
-import { categories } from "./seeds/categories";
+// import { category } from "./seeds/category";
 
 const app = express();
 const PORT = process.env.PORT || 8800;
@@ -26,23 +26,23 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-// const createCategories = () => {
-//   categories.map((cat) => {
-//     db.Categories.create(cat);
+// const createcategory = () => {
+//   category.map((cat) => {
+//     db.category.create(cat);
 //   });
 // };
-// createCategories();
+// createcategory();
 
 async function init() {
   await assertDatabaseConnectionOk();
 
-  // const newCat = await db.Categories.create({
-  //   // id: 2,
-  //   categoryLabel: "Lighting",
-  //   categorySlug: "lighting",
-  //   parentCategory: null,
-  // });
-  console.log(db.Categories);
+  const newCat = await db.category.create({
+    // id: 2,
+    categoryLabel: "Lighting",
+    categorySlug: "lighting",
+    parentCategory: null,
+  });
+  // console.log(db.Category);
 
   app.listen(PORT, () =>
     console.log(`========> Server started at port ${PORT}`)

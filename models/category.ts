@@ -3,16 +3,12 @@ import { Model } from "sequelize";
 import SequelizeSlugify from "sequelize-slugify";
 
 export interface CategoryAttributes {
-  // id: number;
   categoryLabel: string;
   categorySlug: string;
   parentCategoryId?: number | null;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Categories
-    extends Model<CategoryAttributes>
-    implements CategoryAttributes
-  {
+  class Category extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a  part of Sequelize lifecycle.
@@ -23,22 +19,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
     categorySlug!: string;
     parentCategoryId?: number | null;
     static associate(models: any): void {
-      // define association here
-      // models.Category.belongsToMany(models.Category, {
-      //   through: "Category",
-      // });
-      Categories.hasMany(models.Categories, { as: "subCategories" });
-      Categories.hasMany(models.Products); //FIXME: do I need to put associate here, or can put it inside product file?
+      Category.hasMany(models.category, { as: "subCategory" });
+      // Category.hasMany(models.Product); //FIXME: do I need to put associate here, or can put it inside product file?
     }
   }
-  Categories.init(
+  Category.init(
     {
-      // id: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      //   primaryKey: true,
-      //   autoIncrement: true,
-      // },
       categoryLabel: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -52,19 +38,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
       parentCategoryId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: "Categories",
-          key: "id",
-        },
       },
     },
     {
       sequelize,
-      modelName: "Categories",
+      modelName: "category",
     }
   );
-  SequelizeSlugify.slugifyModel(Categories, {
-    source: ["categoryLabel"],
-  });
-  return Categories;
+  // SequelizeSlugify.slugifyModel(Category, {
+  //   source: ["categoryLabel"],
+  // });
+  return Category;
 };

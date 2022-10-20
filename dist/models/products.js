@@ -6,20 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const sequelize_slugify_1 = __importDefault(require("sequelize-slugify"));
 module.exports = (sequelize, DataTypes) => {
-    class Products extends sequelize_1.Model {
+    class Product extends sequelize_1.Model {
         static associate(models) {
-            Products.belongsTo(models.Categories);
         }
     }
-    Products.init({
-        categoryId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: "Categories",
-                key: "id",
-            },
-        },
+    Product.init({
         productName: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -44,10 +35,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         sequelize,
-        modelName: "Products",
+        modelName: "Product",
     });
-    sequelize_slugify_1.default.slugifyModel(Products, {
+    sequelize_slugify_1.default.slugifyModel(Product, {
         source: ["productName"],
     });
-    return Products;
+    return Product;
 };
