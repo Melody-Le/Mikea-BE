@@ -37,11 +37,10 @@ async function init() {
   await assertDatabaseConnectionOk();
 
   const newCat = await db.Categories.create({
-    id: 1,
+    id: 2,
     categoryLabel: "Lighting",
     categorySlug: "lighting",
-    parentCategory: undefined,
-    categoryId: 1,
+    // parentCategory: null,
   });
   // console.log(db.Categories);
 
