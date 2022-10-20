@@ -2,7 +2,7 @@ import SequelizeSlugify from "sequelize-slugify";
 
 // import { CategoryAttributes } from "../models/categories";
 
-// class Categories implements CategoryAttributes {
+// class category implements CategoryAttributes {
 //   constructor(
 //     public id: number,
 //     public categoryLabel: string,
@@ -20,7 +20,7 @@ import SequelizeSlugify from "sequelize-slugify";
 //   }
 // }
 
-export const categories = [
+export const category = [
   {
     categoryLabel: "Tables And Desk",
     categorySlug: "table-and-desk",
