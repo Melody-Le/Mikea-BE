@@ -1,6 +1,6 @@
 import SequelizeSlugify from "sequelize-slugify";
 
-import { CategoryAttributes } from "../models/categories";
+// import { CategoryAttributes } from "../models/categories";
 
 // class Categories implements CategoryAttributes {
 //   constructor(

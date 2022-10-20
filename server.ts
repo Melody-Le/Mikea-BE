@@ -36,13 +36,12 @@ app.use(express.json());
 async function init() {
   await assertDatabaseConnectionOk();
 
-  // const newCat = await db.Categories.create({
-  //   // id: 2,
-  //   categoryLabel: "Lighting",
-  //   categorySlug: "lighting",
-  //   parentCategory: null,
-  // });
-  console.log(db.Categories);
+  const newCat = await db.category.create({
+    // id: 2,
+    categoryLabel: "Chair And Sofas",
+    categorySlug: "chair-and-sofas",
+    parentCategory: null,
+  });
 
   app.listen(PORT, () =>
     console.log(`========> Server started at port ${PORT}`)
