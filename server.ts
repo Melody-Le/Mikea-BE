@@ -11,12 +11,12 @@ const PORT = process.env.PORT || 8800;
 
 /// Connect to database by using sequelize
 async function assertDatabaseConnectionOk() {
-  console.log("Checking database connection...");
+  console.log("========> Checking database connection...");
   try {
     await db.sequelize.sync();
-    console.log("Database connection OK!");
+    console.log(" ========> Database connection OK!");
   } catch (error) {
-    console.log("Unable to connect to the database:");
+    console.log("xxxxxxxxx---> Unable to connect to the database:");
     console.log((error as Error).message); //NOTE: Read about generic type
     process.exit(1);
   }
@@ -36,15 +36,17 @@ app.use(express.json());
 async function init() {
   await assertDatabaseConnectionOk();
 
-  const newCat = await db.Categories.create({
-    id: 2,
-    categoryLabel: "Lighting",
-    categorySlug: "lighting",
-    // parentCategory: null,
-  });
-  // console.log(db.Categories);
+  // const newCat = await db.Categories.create({
+  //   // id: 2,
+  //   categoryLabel: "Lighting",
+  //   categorySlug: "lighting",
+  //   parentCategory: null,
+  // });
+  console.log(db.Categories);
 
-  app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
+  app.listen(PORT, () =>
+    console.log(`========> Server started at port ${PORT}`)
+  );
 }
 
 init();

@@ -13,12 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     Categories.init({
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         categoryLabel: {
             type: DataTypes.STRING,
             allowNull: false,

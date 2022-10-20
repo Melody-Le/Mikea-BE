@@ -3,7 +3,7 @@ import { Model } from "sequelize";
 import SequelizeSlugify from "sequelize-slugify";
 
 export interface ProductAttributes {
-  id: number;
+  // id: number;
   categoryId: number;
   productName: string;
   productSlug: string;
@@ -19,7 +19,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    id!: number;
+    // id!: number;
     categoryId!: number;
     productName!: string;
     productSlug!: string;
@@ -33,12 +33,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
   }
   Products.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
+      // id: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   primaryKey: true,
+      //   autoIncrement: true,
+      // },
       categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,

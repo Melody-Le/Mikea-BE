@@ -3,10 +3,10 @@ import { Model } from "sequelize";
 import SequelizeSlugify from "sequelize-slugify";
 
 export interface CategoryAttributes {
-  id: number;
+  // id: number;
   categoryLabel: string;
   categorySlug: string;
-  parentCategoryId?: number;
+  parentCategoryId?: number | null;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
   class Categories
@@ -18,27 +18,27 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * This method is not a  part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    id!: number; // ! mean: non-nullable
+    // id!: number; // ! mean: non-nullable
     categoryLabel!: string;
     categorySlug!: string;
-    parentCategoryId?: number;
+    parentCategoryId?: number | null;
     static associate(models: any): void {
       // define association here
       // models.Category.belongsToMany(models.Category, {
       //   through: "Category",
       // });
       Categories.hasMany(models.Categories, { as: "subCategories" });
-      Categories.hasMany(models.Products);
+      Categories.hasMany(models.Products); //FIXME: do I need to put associate here, or can put it inside product file?
     }
   }
   Categories.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true,
-      },
+      // id: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   primaryKey: true,
+      //   autoIncrement: true,
+      // },
       categoryLabel: {
         type: DataTypes.STRING,
         allowNull: false,
