@@ -7,7 +7,8 @@
     "dev": "tsnd --respawn server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon dist/app.js",
-    "commit": "cz"
+    "commit": "cz",
+    "db:seeds": "node ./dist/seeders/seeds.js"
   },
   "author": "",
   "license": "ISC",

@@ -1,33 +1,31 @@
-import SequelizeSlugify from "sequelize-slugify";
-export const categories = [
+import db from "../models";
+// get categoryId from DB to create subCat
+console.log("db.category is: ", db.category);
+
+export const subCategories = [
   {
-    categoryLabel: "Tables And Desk",
-    categorySlug: "table-and-desk",
+    categoryLabel: "Study Table",
+    categorySlug: "study-table",
     parentCategoryId: null,
   },
   {
-    categoryLabel: "Chairs And Sofas",
-    categorySlug: "chairs-and-sofas",
+    categoryLabel: "Coffee table",
+    categorySlug: "coffee-table",
     parentCategoryId: null,
   },
   {
-    categoryLabel: "Wadrobe",
-    categorySlug: "wadrobe",
+    categoryLabel: "Dinning Table",
+    categorySlug: "dinning-table",
     parentCategoryId: null,
   },
   {
-    categoryLabel: "Hometool",
-    categorySlug: "hometool",
+    categoryLabel: "Office Chair",
+    categorySlug: "office-chair",
     parentCategoryId: null,
   },
   {
-    categoryLabel: "Decoration",
-    categorySlug: "decoration",
-    parentCategoryId: null,
-  },
-  {
-    categoryLabel: "Lighting",
-    categorySlug: "lighting",
+    categoryLabel: "Dinning Chair",
+    categorySlug: "dinning-chair",
     parentCategoryId: null,
   },
 ];

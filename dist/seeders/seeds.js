@@ -3,16 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-require("./config/config.js");
-const body_parser_1 = __importDefault(require("body-parser"));
-const models_1 = __importDefault(require("./models"));
-const app = (0, express_1.default)();
-const PORT = process.env.PORT || 8800;
+const models_1 = __importDefault(require("../models"));
+require("../config/config.js");
 const assertDatabaseConnectionOk = async () => {
     console.log("========> Checking database connection...");
     try {
         await models_1.default.sequelize.sync();
+        console.log(models_1.default.category);
         console.log(" ========> Database connection OK!");
     }
     catch (error) {
@@ -21,11 +18,10 @@ const assertDatabaseConnectionOk = async () => {
         process.exit(1);
     }
 };
-app.use(express_1.default.json());
-app.use(body_parser_1.default.urlencoded({ extended: false }));
-app.use(express_1.default.json());
+const seed = async () => {
+};
 async function init() {
     await assertDatabaseConnectionOk();
-    app.listen(PORT, () => console.log(`========> Server started at port ${PORT}`));
+    console.log(models_1.default.category);
 }
 init();
