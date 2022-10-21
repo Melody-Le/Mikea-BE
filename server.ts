@@ -3,8 +3,10 @@ import express, { Request, Response, NextFunction } from "express";
 import { json } from "body-parser";
 import bodyParser from "body-parser";
 import db from "./models";
+import SequelizeSlugify from "sequelize-slugify";
 
-// import { category } from "./seeds/category";
+import { categories } from "./seeders/categories";
+import slug from "slug";
 
 const app = express();
 const PORT = process.env.PORT || 8800;
@@ -27,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 // const createcategory = () => {
-//   category.map((cat) => {
+//   categories.map((cat) => {
 //     db.category.create(cat);
 //   });
 // };
@@ -36,10 +38,9 @@ app.use(express.json());
 async function init() {
   await assertDatabaseConnectionOk();
 
-  const newCat = await db.category.create({
-    categoryLabel: "kitchen",
-    categorySlug: "kitchen",
-    parentCategory: null,
+  await db.category.create({
+    categoryLabel: "Study Table",
+    categorySlug: "study-table",
   });
 
   app.listen(PORT, () =>

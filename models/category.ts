@@ -5,7 +5,7 @@ import SequelizeSlugify from "sequelize-slugify";
 export interface CategoryAttributes {
   categoryLabel: string;
   categorySlug: string;
-  parentCategoryId?: number | null;
+  // parentCategoryId?: number | null;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
   class Category extends Model {
@@ -14,13 +14,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * This method is not a  part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // id!: number; // ! mean: non-nullable
     categoryLabel!: string;
     categorySlug!: string;
-    parentCategoryId?: number | null;
+    // parentCategoryId?: number | null;
     static associate(models: any): void {
-      Category.hasMany(models.category, { as: "subCategory" });
-      Category.hasMany(models.product); //FIXME: do I need to put associate here, or can put it inside product file?
+      // Category.hasMany(models.category, { as: "subCategory" });
+      // Category.hasMany(models.product); //FIXME: do I need to put associate here, or can put it inside product file?
     }
   }
   Category.init(
@@ -35,10 +34,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         unique: true,
       },
-      parentCategoryId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
+      // parentCategoryId: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: true,
+      // },
     },
     {
       sequelize,
