@@ -28,6 +28,7 @@ async function init() {
     await models_1.default.category.create({
         categoryLabel: "Study Table",
         categorySlug: "study-table",
+        parentCategoryId: null,
     });
     app.listen(PORT, () => console.log(`========> Server started at port ${PORT}`));
 }

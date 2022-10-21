@@ -19,14 +19,14 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      // parentCategoryId: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: true,
-      //   references: {
-      //     model: "categories",
-      //     key: "id",
-      //   },
-      // },
+      parentCategoryId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "categories",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

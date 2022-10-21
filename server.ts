@@ -41,6 +41,7 @@ async function init() {
   await db.category.create({
     categoryLabel: "Study Table",
     categorySlug: "study-table",
+    parentCategoryId: null,
   });
 
   app.listen(PORT, () =>

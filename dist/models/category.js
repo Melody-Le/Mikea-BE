@@ -4,6 +4,10 @@ const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Category extends sequelize_1.Model {
         static associate(models) {
+            models.category.hasMany(models.category, {
+                as: "subCategory",
+                foreignKey: "parentCategoryId",
+            });
         }
     }
     Category.init({
@@ -16,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
+        },
+        parentCategoryId: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         },
     }, {
         sequelize,

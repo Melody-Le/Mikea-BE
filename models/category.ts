@@ -5,7 +5,7 @@ import SequelizeSlugify from "sequelize-slugify";
 export interface CategoryAttributes {
   categoryLabel: string;
   categorySlug: string;
-  // parentCategoryId?: number | null;
+  parentCategoryId?: number | null;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
   class Category extends Model {
@@ -18,7 +18,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
     categorySlug!: string;
     // parentCategoryId?: number | null;
     static associate(models: any): void {
-      // Category.hasMany(models.category, { as: "subCategory" });
+      models.category.hasMany(models.category, {
+        as: "subCategory",
+        foreignKey: "parentCategoryId",
+      });
       // Category.hasMany(models.product); //FIXME: do I need to put associate here, or can put it inside product file?
     }
   }
@@ -34,10 +37,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         unique: true,
       },
-      // parentCategoryId: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: true,
-      // },
+      parentCategoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
     },
     {
       sequelize,
