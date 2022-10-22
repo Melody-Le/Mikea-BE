@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import db from "../models";
 const { category: Category, product: Product, variant: Variant } = db;
+
 export const showProducts: RequestHandler = async (req, res, next) => {
   try {
     const products = await Product.findAll();
