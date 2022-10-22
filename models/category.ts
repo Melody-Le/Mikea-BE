@@ -1,6 +1,5 @@
 "use strict";
 import { Model } from "sequelize";
-import SequelizeSlugify from "sequelize-slugify";
 
 export interface CategoryAttributes {
   categoryLabel: string;
@@ -22,7 +21,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         as: "subCategory",
         foreignKey: "parentCategoryId",
       });
-      // Category.hasMany(models.product); //FIXME: do I need to put associate here, or can put it inside product file?
+      Category.hasMany(models.product); //FIXME: do I need to put associate here, or can put it inside product file?
     }
   }
   Category.init(
@@ -47,8 +46,5 @@ module.exports = (sequelize: any, DataTypes: any) => {
       modelName: "category",
     }
   );
-  // SequelizeSlugify.slugifyModel(Category, {
-  //   source: ["categoryLabel"],
-  // });
   return Category;
 };

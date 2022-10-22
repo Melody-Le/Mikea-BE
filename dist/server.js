@@ -8,6 +8,7 @@ require("./config/config.js");
 const models_1 = __importDefault(require("./models"));
 const cors_1 = __importDefault(require("cors"));
 const catRoutes_1 = __importDefault(require("./routes/catRoutes"));
+const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8800;
 const assertDatabaseConnectionOk = async () => {
@@ -26,6 +27,7 @@ app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({ origin: "*" }));
 app.use("/categories", catRoutes_1.default);
+app.use("/products", productRoutes_1.default);
 async function init() {
     await assertDatabaseConnectionOk();
     app.listen(PORT, () => console.log(`========> Server started at port ${PORT}`));

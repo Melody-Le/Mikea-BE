@@ -4,6 +4,7 @@ import "./config/config.js";
 import db from "./models";
 import cors from "cors";
 import categoryRoutes from "./routes/catRoutes";
+import productRoutes from "./routes/productRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 8800;
@@ -24,7 +25,9 @@ const assertDatabaseConnectionOk = async () => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({ origin: "*" }));
+
 app.use("/categories", categoryRoutes);
+app.use("/products", productRoutes);
 
 async function init() {
   await assertDatabaseConnectionOk();
