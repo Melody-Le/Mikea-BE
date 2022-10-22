@@ -1,5 +1,6 @@
 const products = [
   {
+    id: 1,
     categoryId: 7,
     productName: "LINNMON / ADILS",
     productSlug: "linnmon-adils",
@@ -10,6 +11,7 @@ const products = [
     room: "Bed room, Office, Study room",
   },
   {
+    id: 2,
     categoryId: 7,
     productName: "BEKANT",
     productSlug: "bekant",
@@ -20,6 +22,7 @@ const products = [
     room: "Bed room, office, Study room",
   },
   {
+    id: 3,
     categoryId: 8,
     productName: "BORGEBY",
     productSlug: "borgeby",
@@ -30,6 +33,7 @@ const products = [
     room: "Living room",
   },
   {
+    id: 4,
     categoryId: 8,
     productName: "YPPERLIG",
     productSlug: "ypperlig",

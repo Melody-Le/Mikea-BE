@@ -1,6 +1,5 @@
 "use strict";
-const productList = require("../dist/data/products");
-
+const variantList = require("../dist/data/variants");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -13,7 +12,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    await queryInterface.bulkInsert("products", productList, {});
+    await queryInterface.bulkInsert("variants", variantList, {});
   },
 
   async down(queryInterface, Sequelize) {
@@ -23,6 +22,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete("products", null, {});
+    return queryInterface.bulkDelete("variants", null, {});
   },
 };
