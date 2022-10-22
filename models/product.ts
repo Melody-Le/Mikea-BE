@@ -46,11 +46,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
         unique: true,
       },
       productDescription: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       productImages: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       room: {
