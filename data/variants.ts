@@ -1,7 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
+import { generateShortUuid } from "custom-uuid";
+
 const variants = [
   {
-    id: uuidv4(),
+    id: generateShortUuid(),
     productId: 1,
     qtyInStock: 10,
     variantDescription: "Table, white, 100x60 cm",
@@ -13,7 +14,7 @@ const variants = [
       "https://www.ikea.com/sg/en/images/products/linnmon-adils-table-white__0737165_pe740925_s5.jpg?f=xl",
   },
   {
-    id: uuidv4(),
+    id: generateShortUuid(),
     productId: 1,
     qtyInStock: 5,
     variantDescription: "Desk, black-brown, 100x60 cm",
@@ -25,7 +26,7 @@ const variants = [
       "https://www.ikea.com/sg/en/images/products/linnmon-adils-desk-black-brown__0974302_pe812345_s5.jpg?f=xl",
   },
   {
-    id: uuidv4(),
+    id: generateShortUuid(),
     productId: 2,
     qtyInStock: 5,
     variantDescription: "Desk, white, 160x80 cm",
@@ -37,7 +38,7 @@ const variants = [
       "https://www.ikea.com/sg/en/images/products/bekant-desk-white__0736420_pe740535_s5.jpg?f=xl",
   },
   {
-    id: uuidv4(),
+    id: generateShortUuid(),
     productId: 2,
     qtyInStock: 5,
     variantDescription: "Desk, linoleum blue/black, 160x80 cm",
@@ -49,7 +50,7 @@ const variants = [
       "https://www.ikea.com/sg/en/images/products/bekant-desk-linoleum-blue-black__0736416_pe740531_s5.jpg?f=xl",
   },
   {
-    id: uuidv4(),
+    id: generateShortUuid(),
     productId: 3,
     qtyInStock: 10,
     variantDescription: "Coffee table, black, 70 cm",
@@ -61,7 +62,7 @@ const variants = [
       "https://www.ikea.com/sg/en/images/products/bekant-desk-linoleum-blue-black__0736416_pe740531_s5.jpg?f=xlhttps://www.ikea.com/sg/en/images/products/borgeby-coffee-table-black__0983032_pe815898_s5.jpg?f=xl",
   },
   {
-    id: uuidv4(),
+    id: generateShortUuid(),
     productId: 3,
     qtyInStock: 10,
     variantDescription: "Coffee table, birch veneer, 70 cm",
@@ -73,7 +74,7 @@ const variants = [
       "https://www.ikea.com/sg/en/images/products/borgeby-coffee-table-birch-veneer__0987623_pe817609_s5.jpg?f=xl",
   },
   {
-    id: uuidv4(),
+    id: generateShortUuid(),
     productId: 4,
     qtyInStock: 10,
     variantDescription: "Coffee table, dark grey/birch, 50 cm",
