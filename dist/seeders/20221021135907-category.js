@@ -1,5 +1,5 @@
 "use strict";
-const createSubCat = require("../data/subCategories.ts");
+const createSubCat = require("../dist/data/subCategories");
 module.exports = {
     async up(queryInterface, Sequelize) {
         console.log("=============> done category");

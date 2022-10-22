@@ -1,13 +1,9 @@
 // const express = require("express");
 import express, { Request, Response, NextFunction } from "express";
 import "./config/config.js";
-import { json } from "body-parser";
-import bodyParser from "body-parser";
 import db from "./models";
-console.log("==================> db.category is:", db.category);
-import SequelizeSlugify from "sequelize-slugify";
-
-import slug from "slug";
+import cors from "cors";
+import categoryRoutes from "./routes/catRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 8800;
@@ -21,28 +17,17 @@ const assertDatabaseConnectionOk = async () => {
   } catch (error) {
     console.log("xxxxxxxxx---> Unable to connect to the database:");
     console.log((error as Error).message);
-    process.exit(1);
+    process.exit();
   }
 };
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.json());
-
-// const createcategory = () => {
-//   categories.map((cat) => {
-//     db.category.create(cat);
-//   });
-// };
-// createcategory();
+app.use(cors({ origin: "*" }));
+app.use("/categories", categoryRoutes);
 
 async function init() {
   await assertDatabaseConnectionOk();
-  // await db.category.create({
-  //   categoryLabel: "hehe",
-  //   categorySlug: "hheee",
-  //   parentCategoryId: null,
-  // });
 
   app.listen(PORT, () =>
     console.log(`========> Server started at port ${PORT}`)

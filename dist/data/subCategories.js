@@ -1,46 +1,34 @@
 "use strict";
-const db = require("../models");
-const createSubCat = async () => {
-  const tableCat = await db.category.findOne({
-    attributes: ["id"],
-    where: { categorySlug: "table-and-desk" },
-  });
-  const chairCat = await db.category.findOne({
-    attributes: ["id"],
-    where: { categorySlug: "chairs-and-sofas" },
-  });
-  console.log(" ============. tableCat.id is:", tableCat.id);
-  const subCategories = [
+const subCategories = [
     {
-      categoryLabel: "Study Table",
-      categorySlug: "study-table",
-      parentCategoryId: tableCat.id,
+        id: 7,
+        categoryLabel: "Study Table",
+        categorySlug: "study-table",
+        parentCategoryId: 1,
     },
     {
-      categoryLabel: "Coffee table",
-      categorySlug: "coffee-table",
-      parentCategoryId: tableCat.id,
+        id: 8,
+        categoryLabel: "Coffee table",
+        categorySlug: "coffee-table",
+        parentCategoryId: 1,
     },
     {
-      categoryLabel: "Dinning Table",
-      categorySlug: "dinning-table",
-      parentCategoryId: tableCat.id,
+        id: 9,
+        categoryLabel: "Dinning Table",
+        categorySlug: "dinning-table",
+        parentCategoryId: 1,
     },
     {
-      categoryLabel: "Office Chair",
-      categorySlug: "office-chair",
-      parentCategoryId: chairCat.id,
+        id: 10,
+        categoryLabel: "Office Chair",
+        categorySlug: "office-chair",
+        parentCategoryId: 2,
     },
     {
-      categoryLabel: "Dinning Chair",
-      categorySlug: "dinning-chair",
-      parentCategoryId: chairCat.id,
+        id: 11,
+        categoryLabel: "Dinning Chair",
+        categorySlug: "dinning-chair",
+        parentCategoryId: 2,
     },
-  ];
-  return subCategories;
-};
-const subCat = async () => {
-  createSubCat();
-};
-subCat();
-module.exports = subCat;
+];
+module.exports = subCategories;

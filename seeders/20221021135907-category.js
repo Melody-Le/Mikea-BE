@@ -1,6 +1,6 @@
 "use strict";
-// const categoryList = require("../dist/data/categories");
-const createSubCat = require("../dist/data/subCategories");
+const categoryList = require("../dist/data/categories");
+const subCategoryList = require("../dist/data/subCategories");
 // const createSubCat = require("../data/subCategories.ts");
 
 /** @type {import('sequelize-cli').Migration} */
@@ -18,9 +18,8 @@ module.exports = {
      */
     // await queryInterface.bulkInsert("categories", categoryList, {});
     console.log("=============> done category");
-    const subCatList = await createSubCat();
+    await queryInterface.bulkInsert("categories", subCategoryList, {});
     console.log("=============> done subCatList");
-    await queryInterface.bulkInsert("categories", subCatList, {});
     // return queryInterface.bulkInsert("categories", categoryList);
   },
 
