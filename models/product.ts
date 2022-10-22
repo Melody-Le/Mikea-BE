@@ -27,6 +27,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     static associate(models: any): void {
       // define association here
       Product.belongsTo(models.category);
+      Product.hasMany(models.variant);
     }
   }
   Product.init(
