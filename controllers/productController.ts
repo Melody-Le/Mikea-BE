@@ -21,7 +21,6 @@ export const showProduct: RequestHandler = async (req, res, next) => {
     });
 
     return res.json(product);
-    res.send("hehe");
   } catch (error) {
     console.log(error);
     return res.status(500).json({

@@ -27,7 +27,6 @@ const showProduct = async (req, res, next) => {
             },
         });
         return res.json(product);
-        res.send("hehe");
     }
     catch (error) {
         console.log(error);
