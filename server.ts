@@ -26,8 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-app.use("/categories", categoryRoutes);
-app.use("/products", productRoutes);
+app.use("/api/v1/categories", categoryRoutes);
+app.use("/api/v1/products", productRoutes);
 
 async function init() {
   await assertDatabaseConnectionOk();
