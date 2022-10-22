@@ -1,5 +1,12 @@
 "use strict";
 import { Model } from "sequelize";
+import SequelizeSlugify from "sequelize-slugify";
+
+export interface CategoryAttributes {
+  categoryLabel: string;
+  categorySlug: string;
+  parentCategoryId?: number | null;
+}
 module.exports = (sequelize: any, DataTypes: any) => {
   class Category extends Model {
     /**
@@ -7,11 +14,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
      * This method is not a  part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models: any) {
-      // define association here
-      // models.Category.belongsToMany(models.Category, {
-      //   through: "parentCategoryId",
-      // });
+    categoryLabel!: string;
+    categorySlug!: string;
+    // parentCategoryId?: number | null;
+    static associate(models: any): void {
+      models.category.hasMany(models.category, {
+        as: "subCategory",
+        foreignKey: "parentCategoryId",
+      });
+      // Category.hasMany(models.product); //FIXME: do I need to put associate here, or can put it inside product file?
     }
   }
   Category.init(
@@ -19,20 +30,25 @@ module.exports = (sequelize: any, DataTypes: any) => {
       categoryLabel: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
+      },
+      categorySlug: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
       parentCategoryId: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        references: {
-          model: "Category",
-          key: "id",
-        },
       },
     },
     {
       sequelize,
-      modelName: "Category",
+      modelName: "category",
     }
   );
+  // SequelizeSlugify.slugifyModel(Category, {
+  //   source: ["categoryLabel"],
+  // });
   return Category;
 };
