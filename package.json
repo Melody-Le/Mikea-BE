@@ -8,7 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon dist/app.js",
     "commit": "cz",
-    "db:seeds": "node ./dist/seeders/seeds.js"
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate-undo": "npx sequelize-cli db:migrate:undo",
+    "seed-all": "npx sequelize-cli db:seed:all",
+    "seed-undo": "npx sequelize-cli db:seed:undo"
   },
   "author": "",
   "license": "ISC",

@@ -1,4 +1,4 @@
-export const categories = [
+const categories = [
   {
     categoryLabel: "Tables And Desk",
     categorySlug: "table-and-desk",
@@ -10,8 +10,8 @@ export const categories = [
     parentCategoryId: null,
   },
   {
-    categoryLabel: "Wadrobe",
-    categorySlug: "wadrobe",
+    categoryLabel: "Wardrobe",
+    categorySlug: "wardrobe",
     parentCategoryId: null,
   },
   {
@@ -30,3 +30,4 @@ export const categories = [
     parentCategoryId: null,
   },
 ];
+module.exports = categories;

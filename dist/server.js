@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 require("./config/config.js");
 const body_parser_1 = __importDefault(require("body-parser"));
 const models_1 = __importDefault(require("./models"));
+console.log("==================> db.category is:", models_1.default.category);
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8800;
 const assertDatabaseConnectionOk = async () => {

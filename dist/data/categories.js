@@ -1,7 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.categories = void 0;
-exports.categories = [
+const categories = [
     {
         categoryLabel: "Tables And Desk",
         categorySlug: "table-and-desk",
@@ -13,8 +11,8 @@ exports.categories = [
         parentCategoryId: null,
     },
     {
-        categoryLabel: "Wadrobe",
-        categorySlug: "wadrobe",
+        categoryLabel: "Wardrobe",
+        categorySlug: "wardrobe",
         parentCategoryId: null,
     },
     {
@@ -33,3 +31,4 @@ exports.categories = [
         parentCategoryId: null,
     },
 ];
+module.exports = categories;

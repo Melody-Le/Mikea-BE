@@ -4,9 +4,9 @@ import "./config/config.js";
 import { json } from "body-parser";
 import bodyParser from "body-parser";
 import db from "./models";
+console.log("==================> db.category is:", db.category);
 import SequelizeSlugify from "sequelize-slugify";
 
-import { categories } from "./seeders/categories";
 import slug from "slug";
 
 const app = express();

@@ -9,10 +9,10 @@ index.ts of sequelize: create process.env.NODE_ENV  to create environment
 npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
 
 
-npx sequelize db:migrate 
+npx sequelize-cli db:migrate
 
-npx sequelize db:migrate:undo
-`
+npx sequelize-cli db:migrate:undo
+
 npx sequelize migration:create --name add-collumn-parentCategoryId
 
 SequelizeSlugify.slugifyModel(User, {source: ['name']});
@@ -22,3 +22,8 @@ SequelizeSlugify.slugifyModel(User, {source: ['name']});
 1. Can not import SequelizeSlugify
 2. Can not migrateData
 3. can not run seed , how to run specific file in ts
+NOTE: SEED DATA
+npx sequelize-cli seed:generate --name demo-user
+npx sequelize-cli db:seed:all
+npx sequelize db:seed --seed my_seeder_file.js
+npx sequelize-cli db:seed:undo
