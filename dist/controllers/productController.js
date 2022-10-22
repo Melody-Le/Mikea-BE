@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.showProductVariants = exports.showProduct = exports.showProducts = void 0;
+exports.showProductVariant = exports.showProductVariants = exports.showProduct = exports.showProducts = void 0;
 const models_1 = __importDefault(require("../models"));
 const showProducts = async (req, res, next) => {
     try {
@@ -60,3 +60,17 @@ const showProductVariants = async (req, res, next) => {
     }
 };
 exports.showProductVariants = showProductVariants;
+const showProductVariant = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const variant = await models_1.default.variant.findByPk(id);
+        return res.json(variant);
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: "Failed to fetch variants from database",
+        });
+    }
+};
+exports.showProductVariant = showProductVariant;

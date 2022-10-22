@@ -49,3 +49,16 @@ export const showProductVariants: RequestHandler = async (req, res, next) => {
     });
   }
 };
+
+export const showProductVariant: RequestHandler = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const variant = await db.variant.findByPk(id);
+    return res.json(variant);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to fetch variants from database",
+    });
+  }
+};
