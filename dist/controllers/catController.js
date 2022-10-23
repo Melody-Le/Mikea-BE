@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSubCategories = exports.getCategories = void 0;
 const models_1 = __importDefault(require("../models"));
 const { category: Category } = models_1.default;
-console.log("=============> db.Model", models_1.default.model);
 const getCategories = async (req, res, next) => {
     try {
         const topCategories = await Category.findAll({

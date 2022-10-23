@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import db from "../models";
 const { category: Category } = db;
-console.log("=============> db.Model", db.model);
 
 export const getCategories: RequestHandler = async (req, res, next) => {
   try {

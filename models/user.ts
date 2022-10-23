@@ -3,16 +3,16 @@ import { Model } from "sequelize";
 
 export interface UserAttributes {
   email: string;
-  phone: number;
+  phone?: number | null;
   password: string;
-  address: string;
-  postalCode: number;
+  address?: string | null;
+  postalCode?: number | null;
   username: string;
   isAdmin: boolean;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class user extends Model {
+  class user extends Model<UserAttributes> implements UserAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -67,7 +67,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       username: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false,
         validate: {
           isAlpha: true,
