@@ -9,10 +9,11 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const secrets_1 = require("../utils/secrets");
 const models_1 = __importDefault(require("../models"));
 const { user: User } = models_1.default;
+const { refreshToken: RefreshTokenModel } = models_1.default;
 const generatedAccessToken = (username) => {
     const accessToken = jsonwebtoken_1.default.sign({
         exp: Math.floor(Date.now() / 1000) + 60 * 5,
-        username: { username },
+        username: username,
     }, secrets_1.JWT_SECRET_ACCESS);
     return accessToken;
 };
@@ -59,32 +60,56 @@ const login = async (req, res, next) => {
         if (!isPasswordCorrect) {
             return res.status(401).json({ error: errMsg });
         }
+        const accessToken = generatedAccessToken(user.username);
+        const refreshToken = jsonwebtoken_1.default.sign({
+            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+            username: user.username,
+        }, secrets_1.JWT_SECRET_REFRESH);
+        await RefreshTokenModel.create({ token: refreshToken });
+        res.json({ accessToken, refreshToken });
     }
     catch (error) {
         console.log(error);
         return res.status(500).json({ error: "failed to get user" });
     }
-    const accessToken = generatedAccessToken(username);
-    const refreshToken = jsonwebtoken_1.default.sign({ username: username }, secrets_1.JWT_SECRET_REFRESH);
-    res.json({ accessToken, refreshToken });
 };
 exports.login = login;
 const refresh = async (req, res, next) => {
     try {
         const { refreshToken } = req.body;
+        const token = await RefreshTokenModel.findOne({
+            where: {
+                token: refreshToken,
+            },
+        });
+        if (!token)
+            return res.status(401).json({ error: "Unable to verify refresh token" });
+        const verified = jsonwebtoken_1.default.verify(refreshToken, secrets_1.JWT_SECRET_REFRESH);
+        if (verified) {
+            const accessToken = generatedAccessToken(verified.username);
+            return res.json({ accessToken });
+        }
+        else
+            throw new Error(" Unable to verify refresh token");
     }
     catch (error) {
         console.log(error);
-        return res.status(500).json({});
+        return res.status(401).json({ error: "Unable to verify refresh token" });
     }
 };
 exports.refresh = refresh;
 const logout = async (req, res, next) => {
     try {
+        const { refreshToken } = req.body;
+        await RefreshTokenModel.destroy({ where: { token: refreshToken } });
+        return res.json({
+            message: "Refresh Token deleted successfully",
+        });
     }
-    catch (error) {
-        console.log(error);
-        return res.status(500).json({});
+    catch (err) {
+        return res.status(409).json({
+            error: "Unable to remove refresh token",
+        });
     }
 };
 exports.logout = logout;

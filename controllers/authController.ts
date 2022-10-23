@@ -3,20 +3,20 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET_ACCESS, JWT_SECRET_REFRESH } from "../utils/secrets";
 import { UserAttributes } from "../models/user";
-// import {
-//   NotFoundError,
-//   BadRequestError,
-//   InternalServerError,
-// } from "../utils/apiError";
-// import ApiError from "../utils/apiError";
+import { RefreshTokenAttributes } from "../models/refreshtoken";
 
 import db from "../models";
 const { user: User } = db;
+const { refreshToken: RefreshTokenModel } = db;
+interface JwtPayload {
+  username: string;
+}
 const generatedAccessToken = (username: string): string => {
   const accessToken = jwt.sign(
     {
       exp: Math.floor(Date.now() / 1000) + 60 * 5,
-      username: { username },
+      // data: { username },
+      username: username,
     },
     JWT_SECRET_ACCESS
   );
@@ -68,28 +68,55 @@ export const login: RequestHandler = async (req, res, next) => {
     if (!isPasswordCorrect) {
       return res.status(401).json({ error: errMsg });
     }
+    const accessToken = generatedAccessToken(user.username);
+    const refreshToken = jwt.sign(
+      {
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+        // data: { username: user.username },
+        username: user.username,
+      },
+      JWT_SECRET_REFRESH
+    );
+    await RefreshTokenModel.create({ token: refreshToken });
+    res.json({ accessToken, refreshToken });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "failed to get user" });
   }
-  const accessToken = generatedAccessToken(username);
-  const refreshToken = jwt.sign({ username: username }, JWT_SECRET_REFRESH);
-  res.json({ accessToken, refreshToken });
 };
 
 export const refresh: RequestHandler = async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
+    const token: RefreshTokenAttributes = await RefreshTokenModel.findOne({
+      where: {
+        token: refreshToken,
+      },
+    });
+    if (!token)
+      return res.status(401).json({ error: "Unable to verify refresh token" });
+    // decnstructer
+    const verified = jwt.verify(refreshToken, JWT_SECRET_REFRESH) as JwtPayload;
+    if (verified) {
+      const accessToken = generatedAccessToken(verified.username);
+      return res.json({ accessToken });
+    } else throw new Error(" Unable to verify refresh token");
   } catch (error) {
     console.log(error);
-    return res.status(500).json({});
+    return res.status(401).json({ error: "Unable to verify refresh token" });
   }
 };
 
 export const logout: RequestHandler = async (req, res, next) => {
   try {
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({});
+    const { refreshToken } = req.body;
+    await RefreshTokenModel.destroy({ where: { token: refreshToken } });
+    return res.json({
+      message: "Refresh Token deleted successfully",
+    });
+  } catch (err) {
+    return res.status(409).json({
+      error: "Unable to remove refresh token",
+    });
   }
 };
