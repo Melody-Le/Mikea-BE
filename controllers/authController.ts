@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../utils/secrets";
+import { JWT_SECRET_ACCESS, JWT_SECRET_REFRESH } from "../utils/secrets";
 import { UserAttributes } from "../models/user";
 // import {
 //   NotFoundError,
@@ -12,6 +12,17 @@ import { UserAttributes } from "../models/user";
 
 import db from "../models";
 const { user: User } = db;
+const generatedAccessToken = (username: string): string => {
+  const accessToken = jwt.sign(
+    {
+      exp: Math.floor(Date.now() / 1000) + 60 * 5,
+      username: { username },
+    },
+    JWT_SECRET_ACCESS
+  );
+
+  return accessToken;
+};
 
 export const register: RequestHandler = async (req, res, next) => {
   let { email, password, username } = req.body as UserAttributes;
@@ -61,14 +72,14 @@ export const login: RequestHandler = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({ error: "failed to get user" });
   }
-
-  // generate JWT and return as response
-  const accessToken = jwt.sign(username, JWT_SECRET);
-  res.json({ accessToken });
+  const accessToken = generatedAccessToken(username);
+  const refreshToken = jwt.sign({ username: username }, JWT_SECRET_REFRESH);
+  res.json({ accessToken, refreshToken });
 };
 
 export const refresh: RequestHandler = async (req, res, next) => {
   try {
+    const { refreshToken } = req.body;
   } catch (error) {
     console.log(error);
     return res.status(500).json({});

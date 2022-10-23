@@ -9,6 +9,13 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const secrets_1 = require("../utils/secrets");
 const models_1 = __importDefault(require("../models"));
 const { user: User } = models_1.default;
+const generatedAccessToken = (username) => {
+    const accessToken = jsonwebtoken_1.default.sign({
+        exp: Math.floor(Date.now() / 1000) + 60 * 5,
+        username: { username },
+    }, secrets_1.JWT_SECRET_ACCESS);
+    return accessToken;
+};
 const register = async (req, res, next) => {
     let { email, password, username } = req.body;
     const passHash = await bcrypt_1.default.hash(password, 10);
@@ -57,12 +64,14 @@ const login = async (req, res, next) => {
         console.log(error);
         return res.status(500).json({ error: "failed to get user" });
     }
-    const accessToken = jsonwebtoken_1.default.sign(username, secrets_1.JWT_SECRET);
-    res.json({ accessToken });
+    const accessToken = generatedAccessToken(username);
+    const refreshToken = jsonwebtoken_1.default.sign({ username: username }, secrets_1.JWT_SECRET_REFRESH);
+    res.json({ accessToken, refreshToken });
 };
 exports.login = login;
 const refresh = async (req, res, next) => {
     try {
+        const { refreshToken } = req.body;
     }
     catch (error) {
         console.log(error);

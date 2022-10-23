@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../utils/secrets";
+import { JWT_SECRET_ACCESS } from "../utils/secrets";
 
-export const authUser: RequestHandler = (req, res, next) => {
+export const authMiddleware: RequestHandler = (req, res, next) => {
   // get Authentication header value
   const authzHeader = req.header("Authorization"); //NOTE: TO GET THE TOKEN FROM FRONTEND
   if (!authzHeader) {
@@ -27,7 +27,7 @@ export const authUser: RequestHandler = (req, res, next) => {
   }
 
   // TODO: set global var userAuth if JWT is valid
-  const verified = jwt.verify(token, JWT_SECRET);
+  const verified = jwt.verify(token, JWT_SECRET_ACCESS);
   if (verified) {
     res.locals.userAuth = verified;
     next();

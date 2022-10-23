@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const catRoutes_1 = __importDefault(require("./routes/catRoutes"));
 const productRoutes_1 = __importDefault(require("./routes/productRoutes"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 8800;
 const assertDatabaseConnectionOk = async () => {
@@ -30,6 +31,7 @@ app.use((0, cors_1.default)({ origin: "*" }));
 app.use("/api/v1/categories", catRoutes_1.default);
 app.use("/api/v1/products", productRoutes_1.default);
 app.use("/api/v1/auth", authRoutes_1.default);
+app.use("/api/v1/user", userRoutes_1.default);
 async function init() {
     await assertDatabaseConnectionOk();
     app.listen(PORT, () => console.log(`========> Server started at port ${PORT}`));
