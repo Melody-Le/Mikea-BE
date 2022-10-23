@@ -28,3 +28,33 @@ npx sequelize-cli db:seed:all
 npx sequelize db:seed --seed 20221022061908-product.js
 npx sequelize-cli db:seed:undo
 npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
+
+NOTE: Handy query:
+
+Model.findAll({
+  attributes: { exclude: ['baz'] }
+});
+
+// Delete everyone named "Jane"
+await User.destroy({
+  where: {
+    firstName: "Jane"
+  }
+});
+
+// Truncate the table
+await User.destroy({
+  truncate: true
+});
+
+const jane = await User.create({ name: "Jane" });
+console.log(jane.name); // "Jane"
+await jane.destroy();
+// Now this entry was removed from the database
+
+const jane = await User.create({ name: "Jane" });
+console.log(jane.name); // "Jane"
+jane.name = "Ada";
+// the name is still "Jane" in the database
+await jane.reload();
+console.log(jane.name); // "Jane"

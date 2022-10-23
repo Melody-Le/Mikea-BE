@@ -1,8 +1,10 @@
 import { RequestHandler } from "express";
 import db from "../models";
+const { category: Category, product: Product, variant: Variant } = db;
+
 export const showProducts: RequestHandler = async (req, res, next) => {
   try {
-    const products = await db.product.findAll();
+    const products = await Product.findAll();
     return res.json(products);
   } catch (error) {
     console.log(error);
@@ -14,7 +16,7 @@ export const showProducts: RequestHandler = async (req, res, next) => {
 export const showProduct: RequestHandler = async (req, res, next) => {
   try {
     const productSlug = req.params.productSlug;
-    const product = await db.product.findOne({
+    const product = await Product.findOne({
       where: {
         productSlug,
       },
@@ -30,13 +32,13 @@ export const showProduct: RequestHandler = async (req, res, next) => {
 export const showProductVariants: RequestHandler = async (req, res, next) => {
   try {
     const productSlug = req.params.productSlug;
-    const product = await db.product.findOne({
+    const product = await Product.findOne({
       attributes: ["id"],
       where: {
         productSlug,
       },
     });
-    const variants = await db.variant.findAll({
+    const variants = await Variant.findAll({
       where: {
         productId: product.id,
       },
@@ -53,7 +55,7 @@ export const showProductVariants: RequestHandler = async (req, res, next) => {
 export const showProductVariant: RequestHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const variant = await db.variant.findByPk(id);
+    const variant = await Variant.findByPk(id);
     return res.json(variant);
   } catch (error) {
     console.log(error);

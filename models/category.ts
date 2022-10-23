@@ -7,7 +7,10 @@ export interface CategoryAttributes {
   parentCategoryId?: number | null;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Category extends Model {
+  class Category
+    extends Model<CategoryAttributes>
+    implements CategoryAttributes
+  {
     /**
      * Helper method for defining associations.
      * This method is not a  part of Sequelize lifecycle.

@@ -5,9 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.showProductVariant = exports.showProductVariants = exports.showProduct = exports.showProducts = void 0;
 const models_1 = __importDefault(require("../models"));
+const { category: Category, product: Product, variant: Variant } = models_1.default;
 const showProducts = async (req, res, next) => {
     try {
-        const products = await models_1.default.product.findAll();
+        const products = await Product.findAll();
         return res.json(products);
     }
     catch (error) {
@@ -21,7 +22,7 @@ exports.showProducts = showProducts;
 const showProduct = async (req, res, next) => {
     try {
         const productSlug = req.params.productSlug;
-        const product = await models_1.default.product.findOne({
+        const product = await Product.findOne({
             where: {
                 productSlug,
             },
@@ -39,13 +40,13 @@ exports.showProduct = showProduct;
 const showProductVariants = async (req, res, next) => {
     try {
         const productSlug = req.params.productSlug;
-        const product = await models_1.default.product.findOne({
+        const product = await Product.findOne({
             attributes: ["id"],
             where: {
                 productSlug,
             },
         });
-        const variants = await models_1.default.variant.findAll({
+        const variants = await Variant.findAll({
             where: {
                 productId: product.id,
             },
@@ -63,7 +64,7 @@ exports.showProductVariants = showProductVariants;
 const showProductVariant = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const variant = await models_1.default.variant.findByPk(id);
+        const variant = await Variant.findByPk(id);
         return res.json(variant);
     }
     catch (error) {
