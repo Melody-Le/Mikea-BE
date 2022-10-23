@@ -67,7 +67,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       username: {
         type: DataTypes.STRING,
-        unique: true,
         allowNull: false,
         validate: {
           isAlpha: true,
