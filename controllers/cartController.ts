@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
-import { createAdd } from "typescript";
 import db from "../models";
-const { user: User, cart: Cart, lineitem: LineItem } = db;
+const { user: User, cart: Cart, lineItem: LineItem } = db;
 
 export const createCart: RequestHandler = async (req, res, next) => {
   let userAuth = res.locals.userAuth;
@@ -33,12 +32,18 @@ export const showCart: RequestHandler = async (req, res, next) => {
   }
   try {
     const userCart = await Cart.findAll({ include: User });
+    const lineItemCart = await LineItem.findAll({ where: { cartId: 1 } });
+    // const lineItemsCart = await LineItem.findAll({
+    //   // include: Cart,
+    //   where: { cartId: 1 },
+    // });
+    console.log("==========> lineItemsCart is:", lineItemCart);
 
     // const userCart = await Cart.findOne({ where: { userId: userAuth.userId } });
     // const userCartLineItems = await LineItem.findAll({
     //   where: { cartId: userCart.id },
     // });
-    return res.json(userCart);
+    return res.json({ userCart });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -78,7 +83,6 @@ export const EditCartItem: RequestHandler = async (req, res, next) => {
 };
 
 export const removeFromCart: RequestHandler = async (req, res, next) => {
-  let user = null;
   let userAuth = res.locals.userAuth;
   if (!userAuth) {
     return res.status(401);

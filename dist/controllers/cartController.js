@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeFromCart = exports.EditCartItem = exports.addToCart = exports.showCart = exports.createCart = void 0;
 const models_1 = __importDefault(require("../models"));
-const { user: User, cart: Cart, lineitem: LineItem } = models_1.default;
+const { user: User, cart: Cart, lineItem: LineItem } = models_1.default;
 const createCart = async (req, res, next) => {
     let userAuth = res.locals.userAuth;
     if (!userAuth) {
@@ -38,7 +38,9 @@ const showCart = async (req, res, next) => {
     }
     try {
         const userCart = await Cart.findAll({ include: User });
-        return res.json(userCart);
+        const lineItemCart = await LineItem.findAll({ where: { cartId: 1 } });
+        console.log("==========> lineItemsCart is:", lineItemCart);
+        return res.json({ userCart });
     }
     catch (error) {
         console.log(error);
@@ -81,7 +83,6 @@ const EditCartItem = async (req, res, next) => {
 };
 exports.EditCartItem = EditCartItem;
 const removeFromCart = async (req, res, next) => {
-    let user = null;
     let userAuth = res.locals.userAuth;
     if (!userAuth) {
         return res.status(401);

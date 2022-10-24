@@ -17,7 +17,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       LineItem.belongsTo(models.cart);
       LineItem.belongsTo(models.variant, {
         foreignKey: {
-          name: "productVariantId",
+          name: "variantId",
           type: DataTypes.UUID,
         },
       });
@@ -26,7 +26,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
   LineItem.init(
     {
       cartId: { type: DataTypes.INTEGER, allowNull: false, unique: true },
-      productVariantId: {
+      variantId: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
