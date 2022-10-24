@@ -3,10 +3,11 @@ import express, { Request, Response, NextFunction } from "express";
 import "./config/config.js";
 import db from "./models";
 import cors from "cors";
-import categoryRoutes from "./routes/catRoutes";
+import categoryRoutes from "./routes/categoryRoutes";
 import productRoutes from "./routes/productRoutes";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
+import cartRoutes from "./routes/cartRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 8800;
@@ -32,6 +33,7 @@ app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 async function init() {
   await assertDatabaseConnectionOk();
