@@ -1,6 +1,5 @@
 "use strict";
 import { Model } from "sequelize";
-import SequelizeSlugify from "sequelize-slugify";
 
 export interface ProductAttributes {
   categoryId: number;
@@ -13,11 +12,6 @@ export interface ProductAttributes {
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Product extends Model<ProductAttributes> implements ProductAttributes {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     categoryId!: number;
     productName!: string;
     productSlug!: string;
@@ -25,7 +19,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
     productImages!: string;
     room!: string;
     static associate(models: any): void {
-      // define association here
       Product.belongsTo(models.category);
       Product.hasMany(models.variant);
     }

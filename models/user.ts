@@ -12,7 +12,7 @@ export interface UserAttributes {
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class user extends Model<UserAttributes> implements UserAttributes {
+  class User extends Model<UserAttributes> implements UserAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -27,9 +27,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
     isAdmin!: boolean;
     static associate(models: any) {
       // define association here
+      User.hasOne(models.cart);
     }
   }
-  user.init(
+  User.init(
     {
       email: {
         type: DataTypes.STRING,
@@ -84,5 +85,5 @@ module.exports = (sequelize: any, DataTypes: any) => {
       modelName: "user",
     }
   );
-  return user;
+  return User;
 };

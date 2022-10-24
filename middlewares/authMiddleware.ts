@@ -33,18 +33,18 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
   if (verified) {
     res.locals.userAuth = verified;
     console.log("res.locals.userAuth:", res.locals.userAuth);
-    // let authUser = null;
-    // authUser = await User.findOne({
-    //   attributes: ["id"],
-    //   where: {
-    //     email: res.locals.userAuth.email,
-    //   },
-    // });
-    // if (!authUser) {
-    //   return res.status(404).json();
-    // }
-    // res.locals.userAuth.userId = authUser.id;
-    // console.log("res.locals.userAuth is:", res.locals.userAuth);
+    let authUser = null;
+    authUser = await User.findOne({
+      attributes: ["id"],
+      where: {
+        email: res.locals.userAuth.email,
+      },
+    });
+    if (!authUser) {
+      return res.status(404).json();
+    }
+    res.locals.userAuth.userId = authUser.id;
+    console.log("res.locals.userAuth is:", res.locals.userAuth);
     next();
     return;
   }
