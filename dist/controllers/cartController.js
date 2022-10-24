@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeFromCart = exports.editCartItem = exports.addToCart = exports.showCart = exports.findOrCreateCart = void 0;
+exports.removeFromCart = exports.updateCartItem = exports.addItemToCart = exports.showCart = exports.findOrCreateCart = void 0;
 const models_1 = __importDefault(require("../models"));
 const { user: User, cart: Cart, lineItem: LineItem, variant: Variant } = models_1.default;
 const findOrCreateCart = async (req, res, next) => {
@@ -57,14 +57,14 @@ const showCart = async (req, res, next) => {
     }
 };
 exports.showCart = showCart;
-const addToCart = async (req, res, next) => {
+const addItemToCart = async (req, res, next) => {
     let user = null;
     let userAuth = res.locals.userAuth;
     if (!userAuth) {
         return res.status(401);
     }
     try {
-        const { variantId, qty } = req.body;
+        const { variantId } = req.body;
         const [userCart, cartCreated] = await Cart.findOrCreate({
             where: { userId: userAuth.userId },
             defaults: {},
@@ -76,11 +76,14 @@ const addToCart = async (req, res, next) => {
         if (lineItemCreated) {
             return res.json({ message: "Success to add cart" });
         }
-        const variantAdded = await Variant.findOne({
+        const targetVariant = await Variant.findOne({
             where: { id: lineItem.variantId },
             attributes: ["qtyInStock"],
         });
-        if (lineItem.qty < variantAdded.qtyInStock) {
+        if (!targetVariant) {
+            return res.status(401).json({ message: "can not get product variant" });
+        }
+        if (lineItem.qty < targetVariant.qtyInStock) {
             await LineItem.increment({ qty: +1 }, { where: { id: lineItem.id } });
             res.json({ message: "Success increase quantity in cart" });
         }
@@ -90,27 +93,57 @@ const addToCart = async (req, res, next) => {
     catch (error) {
         console.log(error);
         return res.status(500).json({
-            error: "Failed to load cart",
+            error: "Failed to add to cart",
         });
     }
 };
-exports.addToCart = addToCart;
-const editCartItem = async (req, res, next) => {
+exports.addItemToCart = addItemToCart;
+const updateCartItem = async (req, res, next) => {
     let user = null;
     let userAuth = res.locals.userAuth;
     if (!userAuth) {
         return res.status(401);
     }
     try {
+        const { updateQty } = req.body;
+        const { variantId } = req.params;
+        const cart = await Cart.findOne({
+            where: { userId: userAuth.userId },
+            attributes: ["id"],
+        });
+        const lineItem = await LineItem.findOne({
+            where: { cartId: cart.id, variantId: variantId },
+        });
+        const targetVariant = await Variant.findOne({
+            where: { id: lineItem.variantId },
+            attributes: ["qtyInStock"],
+        });
+        if (!targetVariant) {
+            return res.status(401).json({ message: "can not get product variant" });
+        }
+        const qtyInStock = targetVariant.qtyInStock;
+        if (updateQty > qtyInStock) {
+            return res.status(400).json({
+                error: `Only ${qtyInStock} left, adjust quantity`,
+            });
+        }
+        else {
+            await LineItem.update({ qty: updateQty }, {
+                where: {
+                    id: lineItem.id,
+                },
+            });
+            return res.json({ message: "Success to update cart" });
+        }
     }
     catch (error) {
         console.log(error);
         return res.status(500).json({
-            error: "Failed to load cart",
+            error: "Failed to update cart",
         });
     }
 };
-exports.editCartItem = editCartItem;
+exports.updateCartItem = updateCartItem;
 const removeFromCart = async (req, res, next) => {
     let userAuth = res.locals.userAuth;
     if (!userAuth) {
