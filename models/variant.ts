@@ -15,11 +15,6 @@ export interface VariantAttributes {
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Variant extends Model<VariantAttributes> implements VariantAttributes {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     id!: string;
     productId!: number;
     qtyInStock!: number;
@@ -30,8 +25,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     material?: string | null;
     variantImages!: string;
     static associate(models: any) {
-      // define association here
       Variant.belongsTo(models.product);
+      // Variant.hasOne(models.lineitem);
     }
   }
   Variant.init(
@@ -55,7 +50,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL,
         allowNull: false,
       },
       color: {

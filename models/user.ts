@@ -13,11 +13,6 @@ export interface UserAttributes {
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class User extends Model<UserAttributes> implements UserAttributes {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     email!: string;
     phone?: number | null;
     password!: string;
@@ -26,7 +21,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
     username!: string;
     isAdmin!: boolean;
     static associate(models: any) {
-      // define association here
       User.hasOne(models.cart);
     }
   }

@@ -5,11 +5,9 @@ module.exports = {
     await queryInterface.createTable("variants", {
       id: {
         allowNull: false,
-        // autoIncrement: true,
         primaryKey: true,
         type: Sequelize.STRING,
       },
-
       productId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -17,6 +15,7 @@ module.exports = {
           model: "products",
           key: "id",
         },
+        onDelete: "CASCADE",
       },
       qtyInStock: {
         type: Sequelize.INTEGER,
@@ -27,7 +26,7 @@ module.exports = {
         allowNull: false,
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL,
         allowNull: false,
       },
       color: {
