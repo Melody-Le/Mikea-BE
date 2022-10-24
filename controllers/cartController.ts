@@ -150,10 +150,19 @@ export const removeFromCart: RequestHandler = async (req, res, next) => {
     return res.status(401);
   }
   try {
+    const { variantId } = req.params;
+    const cart = await Cart.findOne({
+      where: { userId: userAuth.userId },
+      attributes: ["id"],
+    });
+    const lineItem = await LineItem.destroy({
+      where: { cartId: cart.id, variantId: variantId },
+    });
+    res.json({ message: "Success to remove item from cart" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      error: "Failed to load cart",
+      error: "Failed to remove item from cart",
     });
   }
 };
