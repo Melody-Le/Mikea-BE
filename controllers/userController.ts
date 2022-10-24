@@ -26,7 +26,19 @@ export const showProfile: RequestHandler = async (req, res, next) => {
   }
 };
 export const editProfile: RequestHandler = async (req, res, next) => {
+  let user = null;
+  let userAuth = res.locals.userAuth;
+  if (!userAuth) {
+    return res.status(401);
+  }
   try {
+    await User.update(
+      { ...req.body },
+      {
+        where: { username: userAuth.username },
+      }
+    );
+    return res.status(200).json("Profile edited");
   } catch (error) {
     console.log(error);
     return res.status(500).json({
