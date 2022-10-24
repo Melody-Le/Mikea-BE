@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import db from "../models";
-const { user: User, cart: Cart, lineItem: LineItem } = db;
+const { user: User, cart: Cart, lineItem: LineItem, variant: Variant } = db;
 
 export const createCart: RequestHandler = async (req, res, next) => {
   let userAuth = res.locals.userAuth;
@@ -31,19 +31,12 @@ export const showCart: RequestHandler = async (req, res, next) => {
     return res.status(401);
   }
   try {
-    const userCart = await Cart.findAll({ include: User });
-    const lineItemCart = await LineItem.findAll({ where: { cartId: 1 } });
-    // const lineItemsCart = await LineItem.findAll({
-    //   // include: Cart,
-    //   where: { cartId: 1 },
-    // });
-    console.log("==========> lineItemsCart is:", lineItemCart);
-
-    // const userCart = await Cart.findOne({ where: { userId: userAuth.userId } });
-    // const userCartLineItems = await LineItem.findAll({
-    //   where: { cartId: userCart.id },
-    // });
-    return res.json({ userCart });
+    const userCart = await Cart.findOne({ where: { userId: userAuth.userId } });
+    const lineItemCart = await LineItem.findAll({
+      include: Variant,
+      where: { cartId: userCart.id },
+    });
+    return res.json({ lineItemCart });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
