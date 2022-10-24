@@ -15,7 +15,7 @@ const showProfile = async (req, res, next) => {
     try {
         user = await User.findOne({
             where: {
-                username: userAuth.username,
+                email: userAuth.email,
             },
         });
         if (!user) {
@@ -39,7 +39,7 @@ const editProfile = async (req, res, next) => {
     }
     try {
         await User.update({ ...req.body }, {
-            where: { username: userAuth.username },
+            where: { email: userAuth.email },
         });
         return res.status(200).json("Profile edited");
     }

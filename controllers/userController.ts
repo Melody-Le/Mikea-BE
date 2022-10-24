@@ -11,7 +11,7 @@ export const showProfile: RequestHandler = async (req, res, next) => {
   try {
     user = await User.findOne({
       where: {
-        username: userAuth.username,
+        email: userAuth.email,
       },
     });
     if (!user) {
@@ -35,7 +35,7 @@ export const editProfile: RequestHandler = async (req, res, next) => {
     await User.update(
       { ...req.body },
       {
-        where: { username: userAuth.username },
+        where: { email: userAuth.email },
       }
     );
     return res.status(200).json("Profile edited");

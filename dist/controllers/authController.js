@@ -10,10 +10,10 @@ const secrets_1 = require("../utils/secrets");
 const models_1 = __importDefault(require("../models"));
 const { user: User } = models_1.default;
 const { refreshToken: RefreshTokenModel } = models_1.default;
-const generatedAccessToken = (username) => {
+const generatedAccessToken = (email) => {
     const accessToken = jsonwebtoken_1.default.sign({
         exp: Math.floor(Date.now() / 1000) + 60 * 5,
-        username: username,
+        email: email,
     }, secrets_1.JWT_SECRET_ACCESS);
     return accessToken;
 };
@@ -46,13 +46,14 @@ const register = async (req, res, next) => {
 exports.register = register;
 const login = async (req, res, next) => {
     const errMsg = "Incorrect username or password";
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
         const user = await User.findOne({
             where: {
-                username,
+                email,
             },
         });
+        console.log("user login:", user);
         if (!user) {
             return res.status(401).json({ error: errMsg });
         }
@@ -60,10 +61,10 @@ const login = async (req, res, next) => {
         if (!isPasswordCorrect) {
             return res.status(401).json({ error: errMsg });
         }
-        const accessToken = generatedAccessToken(user.username);
+        const accessToken = generatedAccessToken(user.email);
         const refreshToken = jsonwebtoken_1.default.sign({
             exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
-            username: user.username,
+            email: user.email,
         }, secrets_1.JWT_SECRET_REFRESH);
         await RefreshTokenModel.create({ token: refreshToken });
         res.json({ accessToken, refreshToken });
@@ -77,6 +78,7 @@ exports.login = login;
 const refresh = async (req, res, next) => {
     try {
         const { refreshToken } = req.body;
+        console.log("refreshToken:", refreshToken);
         const token = await RefreshTokenModel.findOne({
             where: {
                 token: refreshToken,
@@ -86,11 +88,11 @@ const refresh = async (req, res, next) => {
             return res.status(401).json({ error: "Unable to verify refresh token" });
         const verified = jsonwebtoken_1.default.verify(refreshToken, secrets_1.JWT_SECRET_REFRESH);
         if (verified) {
-            const accessToken = generatedAccessToken(verified.username);
+            const accessToken = generatedAccessToken(verified.email);
             return res.json({ accessToken });
         }
         else
-            throw new Error(" Unable to verify refresh token");
+            return res.status(401).json({ error: "Unable to verify refresh token" });
     }
     catch (error) {
         console.log(error);
