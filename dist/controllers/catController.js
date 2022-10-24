@@ -3,38 +3,70 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSubCategories = exports.getCategories = void 0;
+exports.removeFromCart = exports.EditCartItem = exports.addToCart = exports.showCart = void 0;
 const models_1 = __importDefault(require("../models"));
-const { category: Category } = models_1.default;
-const getCategories = async (req, res, next) => {
-    try {
-        const topCategories = await Category.findAll({
-            where: {
-                parentCategoryId: null,
-            },
-        });
-        return res.json(topCategories);
+const { user: User } = models_1.default;
+const showCart = async (req, res, next) => {
+    let user = null;
+    let userAuth = res.locals.userAuth;
+    if (!userAuth) {
+        return res.status(401);
     }
-    catch (error) {
-        throw new Error(" Could not find topCategory");
-    }
-};
-exports.getCategories = getCategories;
-const getSubCategories = async (req, res, next) => {
     try {
-        const catSlug = req.params.catSlug;
-        const subCategories = await Category.findAll({
-            where: {
-                categorySlug: catSlug,
-            },
-        });
-        return res.json(subCategories);
     }
     catch (error) {
         console.log(error);
         return res.status(500).json({
-            error: "Failed to fetch topCategories from database",
+            error: "Failed to load cart",
         });
     }
 };
-exports.getSubCategories = getSubCategories;
+exports.showCart = showCart;
+const addToCart = async (req, res, next) => {
+    let user = null;
+    let userAuth = res.locals.userAuth;
+    if (!userAuth) {
+        return res.status(401);
+    }
+    try {
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: "Failed to load cart",
+        });
+    }
+};
+exports.addToCart = addToCart;
+const EditCartItem = async (req, res, next) => {
+    let user = null;
+    let userAuth = res.locals.userAuth;
+    if (!userAuth) {
+        return res.status(401);
+    }
+    try {
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: "Failed to load cart",
+        });
+    }
+};
+exports.EditCartItem = EditCartItem;
+const removeFromCart = async (req, res, next) => {
+    let user = null;
+    let userAuth = res.locals.userAuth;
+    if (!userAuth) {
+        return res.status(401);
+    }
+    try {
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            error: "Failed to load cart",
+        });
+    }
+};
+exports.removeFromCart = removeFromCart;

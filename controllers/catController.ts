@@ -1,40 +1,63 @@
 import { RequestHandler } from "express";
 import db from "../models";
-const { category: Category } = db;
+const { user: User } = db;
 
-export const getCategories: RequestHandler = async (req, res, next) => {
-  try {
-    const topCategories = await Category.findAll({
-      where: {
-        parentCategoryId: null,
-      },
-    });
-    return res.json(topCategories);
-  } catch (error) {
-    // console.log(error);
-    throw new Error(" Could not find topCategory");
-    // return res.status(500).json({
-    //   error: "Failed to fetch topCategories from database",
-    // });
+export const showCart: RequestHandler = async (req, res, next) => {
+  let user = null;
+  let userAuth = res.locals.userAuth;
+  if (!userAuth) {
+    return res.status(401);
   }
-};
-
-export const getSubCategories: RequestHandler = async (req, res, next) => {
   try {
-    const catSlug = req.params.catSlug;
-    // const subCategories = await Category.findAll({ categorySlug: catSlug });
-    const subCategories = await Category.findAll({
-      where: {
-        categorySlug: catSlug,
-      },
-    });
-
-    return res.json(subCategories);
-    // res.send("hehe");
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      error: "Failed to fetch topCategories from database",
+      error: "Failed to load cart",
+    });
+  }
+};
+
+export const addToCart: RequestHandler = async (req, res, next) => {
+  let user = null;
+  let userAuth = res.locals.userAuth;
+  if (!userAuth) {
+    return res.status(401);
+  }
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to load cart",
+    });
+  }
+};
+
+export const EditCartItem: RequestHandler = async (req, res, next) => {
+  let user = null;
+  let userAuth = res.locals.userAuth;
+  if (!userAuth) {
+    return res.status(401);
+  }
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to load cart",
+    });
+  }
+};
+
+export const removeFromCart: RequestHandler = async (req, res, next) => {
+  let user = null;
+  let userAuth = res.locals.userAuth;
+  if (!userAuth) {
+    return res.status(401);
+  }
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to load cart",
     });
   }
 };

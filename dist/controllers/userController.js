@@ -52,6 +52,11 @@ const editProfile = async (req, res, next) => {
 };
 exports.editProfile = editProfile;
 const deleteAccount = async (req, res, next) => {
+    let user = null;
+    let userAuth = res.locals.userAuth;
+    if (!userAuth) {
+        return res.status(401);
+    }
     try {
     }
     catch (error) {

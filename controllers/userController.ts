@@ -47,6 +47,11 @@ export const editProfile: RequestHandler = async (req, res, next) => {
   }
 };
 export const deleteAccount: RequestHandler = async (req, res, next) => {
+  let user = null;
+  let userAuth = res.locals.userAuth;
+  if (!userAuth) {
+    return res.status(401);
+  }
   try {
   } catch (error) {
     console.log(error);
