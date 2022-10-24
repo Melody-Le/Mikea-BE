@@ -25,7 +25,7 @@ SequelizeSlugify.slugifyModel(User, {source: ['name']});
 NOTE: SEED DATA
 npx sequelize-cli seed:generate --name demo-user
 npx sequelize-cli db:seed:all
-npx sequelize db:seed --seed 20221022061908-product.js
+npx sequelize db:seed --seed 20221022150434-user.js
 npx sequelize-cli db:seed:undo
 npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
 
@@ -58,3 +58,43 @@ jane.name = "Ada";
 // the name is still "Jane" in the database
 await jane.reload();
 console.log(jane.name); // "Jane"
+
+
+NOTE: EAGER LOAD:
+const userCart = await Cart.findAll({ include: User });
+// [
+    {
+        "id": 1,
+        "userId": 1,
+        "createdAt": "2022-10-24T06:49:53.932Z",
+        "updatedAt": "2022-10-24T06:49:53.932Z",
+        "user": {
+            "id": 1,
+            "email": "mel@gmail.com",
+            "phone": 12345678,
+            "password": "$2b$10$nA3XtbTrGdwTLL1rGp2mXuJklxs.8LCr6gKqRTpYYz.K7ZPW70UT2",
+            "address": "193 Bishan street 13",
+            "postalCode": 570193,
+            "username": "mel",
+            "isAdmin": false,
+            "createdAt": "2022-10-24T06:23:42.471Z",
+            "updatedAt": "2022-10-24T06:23:42.471Z"
+        }
+    }
+]
+* for Alias Field:
+const users = await User.findAll({
+  include: { model: Tool, as: 'Instruments' }
+});
+
+User.findAll({
+  include: {
+    model: Tool,
+    as: 'Instruments'
+    where: {
+      size: {
+        [Op.ne]: 'small'
+      }
+    }
+  }
+});

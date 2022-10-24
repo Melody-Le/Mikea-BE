@@ -26,7 +26,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     variantImages!: string;
     static associate(models: any) {
       Variant.belongsTo(models.product);
-      // Variant.hasOne(models.lineitem);
+      Variant.hasOne(models.lineItem);
     }
   }
   Variant.init(

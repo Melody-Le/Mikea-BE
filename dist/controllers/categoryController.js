@@ -13,10 +13,16 @@ const getCategories = async (req, res, next) => {
                 parentCategoryId: null,
             },
         });
-        return res.json(topCategories);
+        const allCategories = await Category.findAll({
+            include: { model: Category, as: "subCategory", required: false },
+        });
+        return res.json(allCategories);
     }
     catch (error) {
-        throw new Error(" Could not find topCategory");
+        console.log(error);
+        return res.status(500).json({
+            error: "Failed to fetch topCategories from database",
+        });
     }
 };
 exports.getCategories = getCategories;

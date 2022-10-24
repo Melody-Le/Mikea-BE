@@ -44,45 +44,7 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
       return res.status(404).json();
     }
     res.locals.userAuth.userId = authUser.id;
-    console.log("res.locals.userAuth is:", res.locals.userAuth);
-    next();
-    return;
-  }
-
-  return res.status(401).json({
-    message: "Invalid auth token",
-  });
-};
-
-export const authUser: RequestHandler = (req, res, next) => {
-  // get Authentication header value
-  const authzHeader = req.header("Authorization"); //NOTE: TO GET THE TOKEN FROM FRONTEND
-  if (!authzHeader) {
-    return res.status(401).json({
-      message: "Authentication details empty",
-    });
-  }
-
-  // check for "Bearer "
-  if (authzHeader.slice(0, 7) !== "Bearer ") {
-    return res.status(401).json({
-      message: "Invalid auth type",
-    });
-  }
-
-  // get value after "Bearer ", the actual JWT token
-  const token = authzHeader.slice(7);
-  if (token.length === 0) {
-    return res.status(401).json({
-      message: "Invalid auth token",
-    });
-  }
-
-  // TODO: set global var userAuth if JWT is valid
-  const verified = jwt.verify(token, JWT_SECRET_ACCESS);
-  if (verified) {
-    res.locals.userAuth = verified;
-    console.log(res.locals.userAuth);
+    // console.log("res.locals.userAuth is:", res.locals.userAuth);
     next();
     return;
   }

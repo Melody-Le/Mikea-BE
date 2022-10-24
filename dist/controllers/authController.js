@@ -8,11 +8,11 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const secrets_1 = require("../utils/secrets");
 const models_1 = __importDefault(require("../models"));
-const { user: User } = models_1.default;
+const { user: User, cart: Cart } = models_1.default;
 const { refreshToken: RefreshTokenModel } = models_1.default;
 const generatedAccessToken = (email) => {
     const accessToken = jsonwebtoken_1.default.sign({
-        exp: Math.floor(Date.now() / 1000) + 60 * 5,
+        exp: Math.floor(Date.now() / 1000) + 60 * 5000,
         email: email,
     }, secrets_1.JWT_SECRET_ACCESS);
     return accessToken;
@@ -91,8 +91,7 @@ const refresh = async (req, res, next) => {
             const accessToken = generatedAccessToken(verified.email);
             return res.json({ accessToken });
         }
-        else
-            return res.status(401).json({ error: "Unable to verify refresh token" });
+        return res.json({ accessToken: "abcd" });
     }
     catch (error) {
         console.log(error);

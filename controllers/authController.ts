@@ -6,7 +6,7 @@ import { UserAttributes } from "../models/user";
 import { RefreshTokenAttributes } from "../models/refreshtoken";
 
 import db from "../models";
-const { user: User } = db;
+const { user: User, cart: Cart } = db;
 const { refreshToken: RefreshTokenModel } = db;
 interface JwtPayload {
   email: string;
@@ -14,8 +14,7 @@ interface JwtPayload {
 const generatedAccessToken = (email: string): string => {
   const accessToken = jwt.sign(
     {
-      exp: Math.floor(Date.now() / 1000) + 60 * 5,
-      // data: { username },
+      exp: Math.floor(Date.now() / 1000) + 60 * 5000,
       email: email,
     },
     JWT_SECRET_ACCESS
@@ -101,8 +100,8 @@ export const refresh: RequestHandler = async (req, res, next) => {
     if (verified) {
       const accessToken = generatedAccessToken(verified.email);
       return res.json({ accessToken });
-    } else
-      return res.status(401).json({ error: "Unable to verify refresh token" });
+    }
+    return res.json({ accessToken: "abcd" });
   } catch (error) {
     console.log(error);
     return res.status(401).json({ error: "Unable to verify refresh token" });

@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     class Variant extends sequelize_1.Model {
         static associate(models) {
             Variant.belongsTo(models.product);
+            Variant.hasOne(models.lineItem);
         }
     }
     Variant.init({

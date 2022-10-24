@@ -19,7 +19,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       productVariantId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         references: {
           model: "variants",

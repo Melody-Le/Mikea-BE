@@ -7,9 +7,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
   class Cart extends Model<CartAttributes> implements CartAttributes {
     userId!: number;
     static associate(models: any) {
-      // define association here
       Cart.belongsTo(models.user);
-      // Cart.hasMany(models.lineitem);
+      Cart.hasMany(models.lineItem);
     }
   }
   Cart.init(
