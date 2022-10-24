@@ -30,6 +30,49 @@ npx sequelize-cli db:seed:undo
 npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
 
 NOTE: Handy query:
+  const user = await db.user.findOne({
+    where: {firstName: 'Brian'},
+    attributes: ['firstName']
+  });
+  const numberOfRecordsUpdated = await db.user.update({
+    lastName: 'Taco'
+  }, {
+    where: {
+      firstName: 'Brian'
+    }
+  });
+
+  console.log('post: ', post.get())
+
+  await db.post.destroy({
+    where: {id: post.get().id}
+  })
+-----
+    const [post, created] = await db.post.findOrCreate({
+    where: {
+      title: 'taco',
+      body: 'burrito',
+      authorName: 'Brian'
+    }
+  });
+  console.log('post: ', post.get())
+  await db.post.destroy({
+    where: {id: post.get().id}
+  })
+-------
+  const [tag1, tagCreated] = await db.tag.findOrCreate({
+    where: {name: "food"}
+  })
+
+  console.log('tag1: ', tag1.get())
+
+  await post.addTags(tag1)
+
+
+
+
+
+  ----------------------------------------
 
 Model.findAll({
   attributes: { exclude: ['baz'] }
