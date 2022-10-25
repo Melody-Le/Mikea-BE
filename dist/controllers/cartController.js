@@ -155,7 +155,7 @@ const removeFromCart = async (req, res, next) => {
             where: { userId: userAuth.userId },
             attributes: ["id"],
         });
-        const lineItem = await LineItem.destroy({
+        await LineItem.destroy({
             where: { cartId: cart.id, variantId: variantId },
         });
         res.json({ message: "Success to remove item from cart" });
