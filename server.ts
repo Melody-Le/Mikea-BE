@@ -1,4 +1,3 @@
-// const express = require("express");
 import express, { Request, Response, NextFunction } from "express";
 import "./config/config.js";
 import db from "./models";
