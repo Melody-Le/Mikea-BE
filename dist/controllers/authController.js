@@ -8,7 +8,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const secrets_1 = require("../utils/secrets");
 const models_1 = __importDefault(require("../models"));
-const { user: User, cart: Cart } = models_1.default;
+const { user: User } = models_1.default;
 const { refreshToken: RefreshTokenModel } = models_1.default;
 const generatedAccessToken = (email) => {
     const accessToken = jsonwebtoken_1.default.sign({
@@ -53,7 +53,6 @@ const login = async (req, res, next) => {
                 email,
             },
         });
-        console.log("user login:", user);
         if (!user) {
             return res.status(401).json({ error: errMsg });
         }
@@ -78,7 +77,6 @@ exports.login = login;
 const refresh = async (req, res, next) => {
     try {
         const { refreshToken } = req.body;
-        console.log("refreshToken:", refreshToken);
         const token = await RefreshTokenModel.findOne({
             where: {
                 token: refreshToken,
@@ -91,7 +89,7 @@ const refresh = async (req, res, next) => {
             const accessToken = generatedAccessToken(verified.email);
             return res.json({ accessToken });
         }
-        return res.json({ accessToken: "abcd" });
+        return res.json({ accessToken: "random" });
     }
     catch (error) {
         console.log(error);

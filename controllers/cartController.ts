@@ -1,6 +1,4 @@
 import { RequestHandler } from "express";
-import { where } from "sequelize";
-import { findConfigFile } from "typescript";
 import db from "../models";
 const { user: User, cart: Cart, lineItem: LineItem, variant: Variant } = db;
 
@@ -64,7 +62,6 @@ export const addItemToCart: RequestHandler = async (req, res, next) => {
       where: { userId: userAuth.userId },
       defaults: {},
     });
-    // const cart = Cart.findOne({ where: { userId: userAuth.userId } });
     //find That User already have that LientItem ( cartId, variantId or not. If have => increase qty, If dont have => create line Item:)
     const [lineItem, lineItemCreated] = await LineItem.findOrCreate({
       where: { cartId: userCart.id, variantId: variantId },
@@ -119,7 +116,6 @@ export const updateCartItem: RequestHandler = async (req, res, next) => {
     if (!targetVariant) {
       return res.status(401).json({ message: "can not get product variant" });
     }
-    // const currentQtyInCart = lineItem.qty;
     const qtyInStock = targetVariant.qtyInStock;
     if (updateQty > qtyInStock) {
       return res.status(400).json({

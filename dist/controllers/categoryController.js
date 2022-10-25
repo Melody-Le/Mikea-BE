@@ -13,10 +13,7 @@ const getCategories = async (req, res, next) => {
                 parentCategoryId: null,
             },
         });
-        const allCategories = await Category.findAll({
-            include: { model: Category, as: "subCategory", required: false },
-        });
-        return res.json(allCategories);
+        return res.json(topCategories);
     }
     catch (error) {
         console.log(error);

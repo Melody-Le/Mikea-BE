@@ -6,7 +6,7 @@ import { UserAttributes } from "../models/user";
 import { RefreshTokenAttributes } from "../models/refreshtoken";
 
 import db from "../models";
-const { user: User, cart: Cart } = db;
+const { user: User } = db;
 const { refreshToken: RefreshTokenModel } = db;
 interface JwtPayload {
   email: string;
@@ -59,7 +59,6 @@ export const login: RequestHandler = async (req, res, next) => {
         email,
       },
     });
-    console.log("user login:", user);
     if (!user) {
       return res.status(401).json({ error: errMsg });
     }
@@ -87,7 +86,6 @@ export const login: RequestHandler = async (req, res, next) => {
 export const refresh: RequestHandler = async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
-    console.log("refreshToken:", refreshToken);
     const token: RefreshTokenAttributes = await RefreshTokenModel.findOne({
       where: {
         token: refreshToken,
@@ -101,7 +99,7 @@ export const refresh: RequestHandler = async (req, res, next) => {
       const accessToken = generatedAccessToken(verified.email);
       return res.json({ accessToken });
     }
-    return res.json({ accessToken: "abcd" });
+    return res.json({ accessToken: "random" });
   } catch (error) {
     console.log(error);
     return res.status(401).json({ error: "Unable to verify refresh token" });
