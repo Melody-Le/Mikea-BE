@@ -29,7 +29,6 @@ const authMiddleware = async (req, res, next) => {
     const verified = jsonwebtoken_1.default.verify(token, secrets_1.JWT_SECRET_ACCESS);
     if (verified) {
         res.locals.userAuth = verified;
-        console.log("res.locals.userAuth:", res.locals.userAuth);
         let authUser = null;
         authUser = await User.findOne({
             attributes: ["id"],

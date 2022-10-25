@@ -28,11 +28,10 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
     });
   }
 
-  // TODO: set global var userAuth if JWT is valid
+  // set global var userAuth if JWT is valid
   const verified = jwt.verify(token, JWT_SECRET_ACCESS);
   if (verified) {
     res.locals.userAuth = verified;
-    console.log("res.locals.userAuth:", res.locals.userAuth);
     let authUser = null;
     authUser = await User.findOne({
       attributes: ["id"],
@@ -44,7 +43,6 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
       return res.status(404).json();
     }
     res.locals.userAuth.userId = authUser.id;
-    // console.log("res.locals.userAuth is:", res.locals.userAuth);
     next();
     return;
   }

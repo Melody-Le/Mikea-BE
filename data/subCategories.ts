@@ -1,4 +1,3 @@
-// import db from "../models";
 const subCategories = [
   {
     id: 7,
