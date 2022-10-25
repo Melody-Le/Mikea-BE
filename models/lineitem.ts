@@ -1,8 +1,9 @@
 "use strict";
-const { Model } = require("sequelize");
+// const { Model } = require("sequelize");
+import { Model } from "sequelize";
 export interface LineItemAttributes {
   cartId: number;
-  productVariantId: string;
+  variantId: string;
   qty: number;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -11,14 +12,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
     implements LineItemAttributes
   {
     cartId!: number;
-    productVariantId!: string;
+    variantId!: string;
     qty!: number;
     static associate(models: any) {
       LineItem.belongsTo(models.cart);
       LineItem.belongsTo(models.variant, {
         foreignKey: {
           name: "variantId",
-          type: DataTypes.UUID,
+          // type: DataTypes.UUID,
         },
       });
     }

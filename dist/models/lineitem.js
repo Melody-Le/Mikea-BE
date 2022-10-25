@@ -1,14 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const { Model } = require("sequelize");
+const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class LineItem extends Model {
+    class LineItem extends sequelize_1.Model {
         static associate(models) {
             LineItem.belongsTo(models.cart);
             LineItem.belongsTo(models.variant, {
                 foreignKey: {
                     name: "variantId",
-                    type: DataTypes.UUID,
                 },
             });
         }
