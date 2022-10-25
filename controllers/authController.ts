@@ -6,17 +6,16 @@ import { UserAttributes } from "../models/user";
 import { RefreshTokenAttributes } from "../models/refreshtoken";
 
 import db from "../models";
-const { user: User } = db;
+const { user: User, cart: Cart } = db;
 const { refreshToken: RefreshTokenModel } = db;
 interface JwtPayload {
-  username: string;
+  email: string;
 }
-const generatedAccessToken = (username: string): string => {
+const generatedAccessToken = (email: string): string => {
   const accessToken = jwt.sign(
     {
-      exp: Math.floor(Date.now() / 1000) + 60 * 5,
-      // data: { username },
-      username: username,
+      exp: Math.floor(Date.now() / 1000) + 60 * 5000,
+      email: email,
     },
     JWT_SECRET_ACCESS
   );
@@ -51,15 +50,16 @@ export const register: RequestHandler = async (req, res, next) => {
 
 export const login: RequestHandler = async (req, res, next) => {
   const errMsg = "Incorrect username or password";
-  const { username, password } = req.body as UserAttributes;
+  const { email, password } = req.body as UserAttributes;
 
   // Authenticated user:
   try {
     const user = await User.findOne({
       where: {
-        username,
+        email,
       },
     });
+    console.log("user login:", user);
     if (!user) {
       return res.status(401).json({ error: errMsg });
     }
@@ -68,12 +68,11 @@ export const login: RequestHandler = async (req, res, next) => {
     if (!isPasswordCorrect) {
       return res.status(401).json({ error: errMsg });
     }
-    const accessToken = generatedAccessToken(user.username);
+    const accessToken = generatedAccessToken(user.email);
     const refreshToken = jwt.sign(
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
-        // data: { username: user.username },
-        username: user.username,
+        email: user.email,
       },
       JWT_SECRET_REFRESH
     );
@@ -88,6 +87,7 @@ export const login: RequestHandler = async (req, res, next) => {
 export const refresh: RequestHandler = async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
+    console.log("refreshToken:", refreshToken);
     const token: RefreshTokenAttributes = await RefreshTokenModel.findOne({
       where: {
         token: refreshToken,
@@ -98,9 +98,10 @@ export const refresh: RequestHandler = async (req, res, next) => {
     // decnstructer
     const verified = jwt.verify(refreshToken, JWT_SECRET_REFRESH) as JwtPayload;
     if (verified) {
-      const accessToken = generatedAccessToken(verified.username);
+      const accessToken = generatedAccessToken(verified.email);
       return res.json({ accessToken });
-    } else throw new Error(" Unable to verify refresh token");
+    }
+    return res.json({ accessToken: "abcd" });
   } catch (error) {
     console.log(error);
     return res.status(401).json({ error: "Unable to verify refresh token" });

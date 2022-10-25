@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authMiddleware = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const secrets_1 = require("../utils/secrets");
-const authMiddleware = (req, res, next) => {
+const models_1 = __importDefault(require("../models"));
+const { user: User } = models_1.default;
+const authMiddleware = async (req, res, next) => {
     const authzHeader = req.header("Authorization");
     if (!authzHeader) {
         return res.status(401).json({
@@ -27,6 +29,18 @@ const authMiddleware = (req, res, next) => {
     const verified = jsonwebtoken_1.default.verify(token, secrets_1.JWT_SECRET_ACCESS);
     if (verified) {
         res.locals.userAuth = verified;
+        console.log("res.locals.userAuth:", res.locals.userAuth);
+        let authUser = null;
+        authUser = await User.findOne({
+            attributes: ["id"],
+            where: {
+                email: res.locals.userAuth.email,
+            },
+        });
+        if (!authUser) {
+            return res.status(404).json();
+        }
+        res.locals.userAuth.userId = authUser.id;
         next();
         return;
     }

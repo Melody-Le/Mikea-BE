@@ -30,5 +30,23 @@ const subCategories = [
     categorySlug: "dinning-chair",
     parentCategoryId: 2,
   },
+  {
+    id: 12,
+    categoryLabel: "Sofas",
+    categorySlug: "sofas",
+    parentCategoryId: 2,
+  },
+  {
+    id: 13,
+    categoryLabel: "Accent Lighting",
+    categorySlug: "accent-lighting",
+    parentCategoryId: 2,
+  },
+  {
+    id: 14,
+    categoryLabel: "Wardrobe Lighting",
+    categorySlug: "wardrobe-lighting",
+    parentCategoryId: 2,
+  },
 ];
 module.exports = subCategories;

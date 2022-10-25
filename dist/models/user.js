@@ -2,11 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class user extends sequelize_1.Model {
+    class User extends sequelize_1.Model {
         static associate(models) {
+            User.hasOne(models.cart);
         }
     }
-    user.init({
+    User.init({
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -58,5 +59,5 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: "user",
     });
-    return user;
+    return User;
 };
