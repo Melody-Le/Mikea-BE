@@ -9,7 +9,7 @@ import {
 const router = Router();
 
 router.get("/", authMiddleware, showOrders);
-router.post("/:orderId", authMiddleware, showOneOrder);
+router.get("/:orderId", authMiddleware, showOneOrder);
 //
 router.post("/", authMiddleware, createOrder);
 
