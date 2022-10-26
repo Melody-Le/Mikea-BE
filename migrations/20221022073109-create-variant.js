@@ -41,7 +41,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      variantImages: {
+      variantImage: {
         type: Sequelize.TEXT,
         allowNull: false,
       },

@@ -2,14 +2,14 @@ import { Router } from "express";
 import { authMiddleware } from "../middlewares/authMiddleware";
 import {
   showOrders,
-  showOneOrder,
+  showOrderByOrderId,
   createOrder,
 } from "../controllers/orderController";
 
 const router = Router();
 
 router.get("/", authMiddleware, showOrders);
-router.get("/:orderId", authMiddleware, showOneOrder);
+router.get("/:orderId", authMiddleware, showOrderByOrderId);
 //
 router.post("/", authMiddleware, createOrder);
 

@@ -11,18 +11,19 @@ module.exports = {
       },
       orderId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        unique: true,
+        references: {
+          model: "orders",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       variantId: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       productName: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       variantDescription: {
         type: Sequelize.TEXT,

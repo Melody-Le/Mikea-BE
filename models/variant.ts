@@ -10,7 +10,7 @@ export interface VariantAttributes {
   color?: string | null;
   size?: string | null;
   material?: string | null;
-  variantImages: string;
+  variantImage: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -23,7 +23,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     color?: string | null;
     size?: string | null;
     material?: string | null;
-    variantImages!: string;
+    variantImage!: string;
     static associate(models: any) {
       Variant.belongsTo(models.product);
       Variant.hasOne(models.lineItem);
@@ -62,7 +62,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       material: {
         type: DataTypes.STRING,
       },
-      variantImages: {
+      variantImage: {
         type: DataTypes.TEXT,
         allowNull: false,
       },

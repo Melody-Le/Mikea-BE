@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
         material: {
             type: DataTypes.STRING,
         },
-        variantImages: {
+        variantImage: {
             type: DataTypes.TEXT,
             allowNull: false,
         },
