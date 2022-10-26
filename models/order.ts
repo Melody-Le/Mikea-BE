@@ -19,7 +19,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
   }
   Order.init(
     {
-      userId: { type: DataTypes.INTEGER, allowNull: false, unique: true },
+      userId: { type: DataTypes.INTEGER, allowNull: false },
       status: {
         type: DataTypes.ENUM(...Object.values(OrderStatus)),
         defaultValue: OrderStatus.PROCESSING,

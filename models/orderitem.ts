@@ -29,18 +29,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
     {
       orderId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: true,
       },
       variantId: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       productName: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
       variantDescription: {
         type: DataTypes.TEXT,

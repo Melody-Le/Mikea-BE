@@ -10,7 +10,7 @@ const variants = [
     color: "white",
     size: "100x60",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/linnmon-adils-table-white__0737165_pe740925_s5.jpg?f=xl",
   },
   {
@@ -22,7 +22,7 @@ const variants = [
     color: "black-brown",
     size: "100x60",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/linnmon-adils-desk-black-brown__0974302_pe812345_s5.jpg?f=xl",
   },
   {
@@ -34,7 +34,7 @@ const variants = [
     color: "white",
     size: "100x60",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/bekant-desk-white__0736420_pe740535_s5.jpg?f=xl",
   },
   {
@@ -46,7 +46,7 @@ const variants = [
     color: "black",
     size: "160x80",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/bekant-desk-linoleum-blue-black__0736416_pe740531_s5.jpg?f=xl",
   },
   {
@@ -58,7 +58,7 @@ const variants = [
     color: "black",
     size: "70",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/bekant-desk-linoleum-blue-black__0736416_pe740531_s5.jpg?f=xlhttps://www.ikea.com/sg/en/images/products/borgeby-coffee-table-black__0983032_pe815898_s5.jpg?f=xl",
   },
   {
@@ -70,7 +70,7 @@ const variants = [
     color: "birch veneer",
     size: "70",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/borgeby-coffee-table-birch-veneer__0987623_pe817609_s5.jpg?f=xl",
   },
   {
@@ -82,7 +82,7 @@ const variants = [
     color: "dark grey, birch",
     size: "50",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/ypperlig-coffee-table-dark-grey-birch__0505344_pe633869_s5.jpg?f=xl",
   },
   {
@@ -95,7 +95,7 @@ const variants = [
     color: "Grey,brown",
     size: "140x85",
     material: "oak veneer",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/moerbylanga-karlpetter-table-and-4-chairs-oak-veneer-brown-stained-gunnared-medium-grey-chrome-plated__1106917_pe868880_s5.jpg?f=xl",
   },
   {
@@ -107,7 +107,7 @@ const variants = [
     color: "Black,Ash veneer",
     size: "140x78",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/lisabo-odger-table-and-4-chairs-black-beige__0737980_pe741295_s5.jpg?f=xl",
   },
   {
@@ -119,7 +119,7 @@ const variants = [
     color: "White,Ash veneer",
     size: "140x78",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/lisabo-janinge-table-and-4-chairs-ash-veneer-white__0737947_pe741267_s5.jpg?f=s",
   },
   {
@@ -131,7 +131,7 @@ const variants = [
     color: "white",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/loberget-malskaer-swivel-chair-white__1078458_pe857202_s5.jpg?f=xl",
   },
   {
@@ -143,7 +143,7 @@ const variants = [
     color: "Black",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/eldberget-malskaer-swivel-chair-pad-dark-grey-black__0814543_pe772659_s5.jpg?f=xl",
   },
   {
@@ -155,7 +155,7 @@ const variants = [
     color: "Dark Grey",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/karljan-chair-dark-grey-kabusa-dark-grey__0714669_pe730181_s5.jpg?f=xl",
   },
   {
@@ -167,7 +167,7 @@ const variants = [
     color: "turquoise",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/karljan-chair-turquoise-kabusa-turquoise__0926961_pe789600_s5.jpg?f=xl",
   },
   {
@@ -179,7 +179,7 @@ const variants = [
     color: "Black",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/adde-chair-black__0728277_pe736167_s5.jpg?f=xl",
   },
   {
@@ -191,7 +191,7 @@ const variants = [
     color: "Dark Grey",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/glostad-2-seat-sofa-knisa-dark-grey__0950864_pe800736_s5.jpg?f=xl",
   },
   {
@@ -203,7 +203,7 @@ const variants = [
     color: "Medium Blue",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/glostad-2-seat-sofa-knisa-medium-blue__0950900_pe800740_s5.jpg?f=xl",
   },
   {
@@ -215,7 +215,7 @@ const variants = [
     color: "Dark Blue",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/aepplaryd-2-seat-sofa-djuparp-dark-blue__0992860_pe820287_s5.jpg?f=xl",
   },
   {
@@ -227,7 +227,7 @@ const variants = [
     color: "Red Brown",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/aepplaryd-2-seat-sofa-djuparp-red-brown__0992861_pe820288_s5.jpg?f=xl",
   },
   {
@@ -239,7 +239,7 @@ const variants = [
     color: "White",
     size: "120x60x191 cm",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/songesand-wardrobe-white__0555120_pe660185_s5.jpg?f=xl",
   },
   {
@@ -251,7 +251,7 @@ const variants = [
     color: "Brown",
     size: "120x60x191 cm",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/songesand-wardrobe-brown__0555114_pe660180_s5.jpg?f=xl",
   },
   {
@@ -263,7 +263,7 @@ const variants = [
     color: "",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/nordkisa-open-wardrobe-with-sliding-door-bamboo__0756084_pe748766_s5.jpg?f=xl",
   },
   {
@@ -275,7 +275,7 @@ const variants = [
     color: "",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/fixa-17-piece-tool-set__0711971_pe728599_s5.jpg?f=xl",
   },
   {
@@ -287,7 +287,7 @@ const variants = [
     color: "",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/fixa-screwdriver-drill-li-ion__0711977_pe728604_s5.jpg?f=xl",
   },
   {
@@ -299,7 +299,7 @@ const variants = [
     color: "",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/fixa-200-piece-wood-screw-set__0711967_pe728596_s5.jpg?f=xl",
   },
   {
@@ -311,7 +311,7 @@ const variants = [
     color: "",
     size: "23 vm",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/fejka-artificial-potted-plant-in-outdoor-bamboo__0748884_pe745273_s5.jpg?f=xl",
   },
   {
@@ -323,7 +323,7 @@ const variants = [
     color: "",
     size: "19 cm",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/fejka-artificial-potted-plant-in-outdoor-monstera__0614197_pe686822_s5.jpg?f=xl",
   },
   {
@@ -336,7 +336,7 @@ const variants = [
     color: "",
     size: "6 cm",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/fejka-artificial-potted-plant-with-pot-in-outdoor-succulent__0614187_pe686812_s5.jpg?f=xl",
   },
   {
@@ -348,7 +348,7 @@ const variants = [
     color: "White",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/tross-ceiling-track-3-spots-white__0426984_pe582505_s5.jpg?f=xl",
   },
   {
@@ -360,7 +360,7 @@ const variants = [
     color: "White",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/nymane-ceiling-spotlight-with-4-spots-white__0607350_pe682899_s5.jpg?f=xl",
   },
   {
@@ -372,7 +372,7 @@ const variants = [
     color: "Black",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/skurup-ceiling-track-3-spots-black__0751053_pe746892_s5.jpg?f=xl",
   },
   {
@@ -384,7 +384,7 @@ const variants = [
     color: "White",
     size: "32 cm",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/stoetta-led-cabinet-lighting-strip-w-sensor-battery-operated-white__0637301_pe698224_s5.jpg?f=xl",
   },
   {
@@ -396,7 +396,7 @@ const variants = [
     color: "White",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/stoetta-led-cabinet-lighting-strip-w-sensor-battery-operated-white__0637301_pe698224_s5.jpg?f=xl",
   },
   {
@@ -408,7 +408,7 @@ const variants = [
     color: "White",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/stoetta-led-spotlight-and-clamp-battery-operated-white__0606496_pe682379_s5.jpg?f=xl",
   },
   {
@@ -420,7 +420,7 @@ const variants = [
     color: "White",
     size: "",
     material: "",
-    variantImages:
+    variantImage:
       "https://www.ikea.com/sg/en/images/products/ledberg-led-lighting-strip-white__0392132_pe560275_s5.jpg?f=xl",
   },
 ];

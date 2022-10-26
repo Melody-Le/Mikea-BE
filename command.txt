@@ -27,6 +27,7 @@ npx sequelize-cli seed:generate --name demo-user
 npx sequelize-cli db:seed:all
 npx sequelize db:seed --seed 20221022150434-user.js
 npx sequelize-cli db:seed:undo
+npx sequelize-cli db:seed:undo:all
 npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data
 
 NOTE: Handy query:
@@ -104,6 +105,13 @@ console.log(jane.name); // "Jane"
 
 
 NOTE: EAGER LOAD:
+      --------------------------
+// open all of nested level:
+const lineItemsInOrder = await LineItem.findAll({
+      where: { cartId: cart.id, variantId: variantIdsArr },
+      include: [{ all: true, nested: true }],
+    });
+    --------------------------
 const userCart = await Cart.findAll({ include: User });
 // [
     {
