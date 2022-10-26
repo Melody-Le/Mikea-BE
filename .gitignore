@@ -2,3 +2,4 @@ node_modules/
 .env
 command.txt
 .DS_Store
+dist
