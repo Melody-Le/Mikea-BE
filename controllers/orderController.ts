@@ -24,13 +24,11 @@ export const showOrders: RequestHandler = async (req, res, next) => {
       where: { userId: userAuth.userId },
       include: { model: OrderItem },
     });
-    //Get OrderItems
-    const orderItems = await OrderItem.findAll({ where: {} });
     return res.json({ orderList });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      error: "Failed to load cart",
+      error: "Failed to load Orders",
     });
   }
 };
@@ -49,7 +47,7 @@ export const showOrderByOrderId: RequestHandler = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      error: "Failed to load cart",
+      error: "Failed to get order by orderid",
     });
   }
 };
@@ -143,7 +141,7 @@ export const createOrder: RequestHandler = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      error: "Failed to add to cart",
+      error: "Failed to add Create Order",
     });
   }
 };
