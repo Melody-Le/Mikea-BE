@@ -4,7 +4,19 @@ const { category: Category, product: Product, variant: Variant } = db;
 
 export const showProducts: RequestHandler = async (req, res, next) => {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+      attributes: [
+        "productName",
+        "productSlug",
+        "productDescription",
+        "productImages",
+        "room",
+      ],
+      include: [
+        { model: Category, attributes: ["categoryLabel"] },
+        { model: Variant, attributes: ["variantImage", "price"] },
+      ],
+    });
     return res.json(products);
   } catch (error) {
     console.log(error);

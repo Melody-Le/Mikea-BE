@@ -60,17 +60,17 @@ export const login: RequestHandler = async (req, res, next) => {
       },
     });
     if (!user) {
-      return res.status(401).json({ error: errMsg });
+      return res.status(400).json({ error: errMsg });
     }
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
-      return res.status(401).json({ error: errMsg });
+      return res.status(400).json({ error: errMsg });
     }
     const accessToken = generatedAccessToken(user.email);
     const refreshToken = jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 240,
         email: user.email,
       },
       JWT_SECRET_REFRESH
