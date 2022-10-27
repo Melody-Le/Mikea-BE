@@ -2,11 +2,11 @@
   "name": "mikea",
   "version": "1.0.0",
   "description": "",
-  "main": "node server.ts",
+  "main": "server.ts",
   "scripts": {
     "dev": "tsnd --respawn server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon dist/app.js",
+    "start": "node dist/server.js",
     "commit": "cz",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate-undo": "npx sequelize-cli db:migrate:undo",
