@@ -21,7 +21,7 @@ const assertDatabaseConnectionOk = async () => {
   } catch (error) {
     console.log("xxxxxxxxx---> Unable to connect to the database:");
     console.log((error as Error).message);
-    process.exit();
+    process.exit(1);
   }
 };
 
