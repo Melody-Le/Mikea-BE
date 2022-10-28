@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "dev": "tsnd --respawn server.ts",
+    "watch": "tsc -w",
+    "dev": "nodemon server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.ts",
     "commit": "cz",
