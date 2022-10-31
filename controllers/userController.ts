@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import db from "../models";
+import { where } from "sequelize";
 const { user: User } = db;
 
 export const showProfile: RequestHandler = async (req, res, next) => {
@@ -53,6 +54,8 @@ export const deleteAccount: RequestHandler = async (req, res, next) => {
     return res.status(401);
   }
   try {
+    await User.destroy({ where: { email: userAuth.email } });
+    return res.status(200).json("Success delete account");
   } catch (error) {
     console.log(error);
     return res.status(500).json({

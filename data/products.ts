@@ -225,7 +225,7 @@ const products = [
     productDescription:
       "This ceiling track with 3 spots is almost invisible on a white ceiling and gives light where you like since each spot can be directed individually. Goes just as well in a hallway as over a kitchen island.",
     productImages:
-      "https://www.ikea.com/sg/en/images/products/tross-ceiling-track-3-spots-white__0879704_pe664 // 13. Accent Lighting29_s5.jpg?f=xl",
+      "https://www.ikea.com/sg/en/images/products/tross-ceiling-track-3-spots-white__0879704_pe616429_s5.jpg?f=xl,https://www.ikea.com/sg/en/images/products/tross-ceiling-track-3-spots-white__0426984_pe582505_s5.jpg?f=xl",
     room: "Living Room,Kitchen",
   },
   {

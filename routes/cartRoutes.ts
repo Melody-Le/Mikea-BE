@@ -13,7 +13,7 @@ const router = Router();
 router.get("/", authMiddleware, showCart);
 router.post("/create", authMiddleware, findOrCreateCart);
 //
-router.post("/add", authMiddleware, addItemToCart);
+router.post("/add/:variantId", authMiddleware, addItemToCart);
 
 router.put("/:variantId", authMiddleware, updateCartItem);
 router.delete("/:variantId", authMiddleware, removeFromCart);

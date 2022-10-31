@@ -14,7 +14,10 @@ export const showProducts: RequestHandler = async (req, res, next) => {
       ],
       include: [
         { model: Category, attributes: ["categoryLabel"] },
-        { model: Variant, attributes: ["variantImage", "price"] },
+        {
+          model: Variant,
+          attributes: ["id", "variantImage", "price", "qtyInStock"],
+        },
       ],
     });
     return res.json(products);

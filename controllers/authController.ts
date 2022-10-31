@@ -41,7 +41,7 @@ export const register: RequestHandler = async (req, res, next) => {
     if (created) {
       return res.status(201).json({ message: "New User Created", user });
     } else {
-      return res.status(409).json("Email already exists");
+      return res.status(409).json({ error: "Email already exists" });
     }
   } catch (error) {
     return res.status(500).json("Fail register");

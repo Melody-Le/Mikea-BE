@@ -349,7 +349,7 @@ const variants = [
     size: "",
     material: "",
     variantImage:
-      "https://www.ikea.com/sg/en/images/products/tross-ceiling-track-3-spots-white__0426984_pe582505_s5.jpg?f=xl",
+      "https://www.ikea.com/sg/en/images/products/tross-ceiling-track-3-spots-white__0426984_pe582505_s5.jpg?f=xlhttps://www.ikea.com/sg/en/images/products/tross-ceiling-track-3-spots-white__0426984_pe582505_s5.jpg?f=xl",
   },
   {
     id: generateShortUuid(),

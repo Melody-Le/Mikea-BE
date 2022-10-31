@@ -1,6 +1,12 @@
 import { RequestHandler } from "express";
 import db from "../models";
-const { user: User, cart: Cart, lineItem: LineItem, variant: Variant } = db;
+const {
+  user: User,
+  cart: Cart,
+  lineItem: LineItem,
+  variant: Variant,
+  product: Product,
+} = db;
 
 export const findOrCreateCart: RequestHandler = async (req, res, next) => {
   let userAuth = res.locals.userAuth;
@@ -17,7 +23,7 @@ export const findOrCreateCart: RequestHandler = async (req, res, next) => {
         .status(201)
         .json({ message: "Cart have just created for new user", cart });
     } else {
-      return res.status(409).json("cart already exists");
+      return res.status(200).json("cart already exists");
     }
   } catch (error) {
     console.log(error);
@@ -37,11 +43,14 @@ export const showCart: RequestHandler = async (req, res, next) => {
       where: { userId: userAuth.userId },
       defaults: {},
     });
-    const lineItemCart = await LineItem.findAll({
-      include: Variant,
+    const { count, rows: lineItems } = await LineItem.findAndCountAll({
+      include: {
+        model: Variant,
+        include: { model: Product, attributes: ["productName"] },
+      },
       where: { cartId: userCart.id },
     });
-    return res.json({ lineItemCart });
+    return res.json({ count, lineItems });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -57,7 +66,7 @@ export const addItemToCart: RequestHandler = async (req, res, next) => {
     return res.status(401);
   }
   try {
-    const { variantId } = req.body;
+    const { variantId } = req.params;
     const [userCart, cartCreated] = await Cart.findOrCreate({
       where: { userId: userAuth.userId },
       defaults: {},
@@ -69,6 +78,7 @@ export const addItemToCart: RequestHandler = async (req, res, next) => {
     });
 
     if (lineItemCreated) {
+      console.log("==============================>add to cart");
       return res.json({ message: "Success to add cart" });
     }
     // If line item already exist => update qty instead:
@@ -82,6 +92,7 @@ export const addItemToCart: RequestHandler = async (req, res, next) => {
     // compare qty in lineItem with qtyInstock, if lineItemqty < qtyInstock => increase. If already same => return "Order Limit Reached"
     if (lineItem.qty < targetVariant.qtyInStock) {
       await LineItem.increment({ qty: +1 }, { where: { id: lineItem.id } });
+      console.log("increased");
       res.json({ message: "Success increase quantity in cart" });
     } else res.json({ message: "Order Limit Reached" });
   } catch (error) {

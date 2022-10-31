@@ -7,7 +7,7 @@
     "watch": "tsc -w",
     "dev": "nodemon server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.ts",
+    "start": "ts-node server.ts",
     "commit": "cz",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate-undo": "npx sequelize-cli db:migrate:undo",
