@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
-import "./config/config.js";
+import "./config/config";
 import db from "./models";
 import cors from "cors";
 import categoryRoutes from "./routes/categoryRoutes";
