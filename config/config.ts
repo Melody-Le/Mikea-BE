@@ -9,12 +9,12 @@ module.exports = {
     logging: false,
     // ssl: true,
 
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true,
+    //     rejectUnauthorized: false,
+    //   },
+    // },
   },
   test: {
     username: process.env.DB_USER,

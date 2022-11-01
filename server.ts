@@ -39,7 +39,7 @@ app.use("/api/v1/orders", orderRoutes);
 async function init() {
   await assertDatabaseConnectionOk();
 
-  app.listen(PORT, () =>
+  app.listen(PORT, async () =>
     console.log(`========> Server started at port ${PORT}`)
   );
 }
