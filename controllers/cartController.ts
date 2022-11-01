@@ -141,6 +141,7 @@ export const updateCartItem: RequestHandler = async (req, res, next) => {
           },
         }
       );
+      console.log("update lineItemQty");
       return res.json({ message: "Success to update cart" });
     }
   } catch (error) {

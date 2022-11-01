@@ -60,7 +60,8 @@ export const createOrder: RequestHandler = async (req, res, next) => {
   }
   const cart = await Cart.findOne({ where: { userId: userAuth.userId } });
   try {
-    const variantIdsArr = JSON.parse(req.body.variantIds);
+    // const variantIdsArr = JSON.parse(req.body.variantIds);
+    const variantIdsArr = req.body.variantIds;
     if (!variantIdsArr.length) {
       return res.status(400).json({
         message: `Please select item before place order`,
