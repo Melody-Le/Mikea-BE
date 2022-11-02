@@ -27,7 +27,13 @@ const assertDatabaseConnectionOk = async () => {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({
+    origin: process.env.FRONT_END_URL || "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
+  })
+);
 
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/products", productRoutes);
