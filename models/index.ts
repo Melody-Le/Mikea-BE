@@ -18,10 +18,8 @@ let sequelize: any;
 // sequelize = new Sequelize(process.env.DB_URL);
 
 if (config.use_env_variable) {
-  console.log("can get config");
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  console.log("can NOT get config");
   sequelize = new Sequelize(
     config.database,
     config.username,

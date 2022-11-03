@@ -35,6 +35,12 @@ export const showProduct: RequestHandler = async (req, res, next) => {
       where: {
         productSlug,
       },
+      include: [
+        { model: Category, attributes: ["categoryLabel"] },
+        {
+          model: Variant,
+        },
+      ],
     });
     return res.json(product);
   } catch (error) {

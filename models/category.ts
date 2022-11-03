@@ -5,6 +5,7 @@ export interface CategoryAttributes {
   categoryLabel: string;
   categorySlug: string;
   parentCategoryId?: number | null;
+  categoryImg: string;
 }
 module.exports = (sequelize: any, DataTypes: any) => {
   class Category
@@ -19,6 +20,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     categoryLabel!: string;
     categorySlug!: string;
     parentCategoryId?: number | null;
+    categoryImg!: string;
     static associate(models: any): void {
       models.category.hasMany(models.category, {
         as: "subCategory",
@@ -42,6 +44,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
       parentCategoryId: {
         type: DataTypes.INTEGER,
         allowNull: true,
+      },
+      categoryImg: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {

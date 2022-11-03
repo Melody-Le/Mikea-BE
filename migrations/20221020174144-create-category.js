@@ -28,6 +28,11 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
+      categoryImg: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
