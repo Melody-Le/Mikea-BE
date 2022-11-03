@@ -115,7 +115,6 @@ export const showProducts: RequestHandler = async (req, res, next) => {
       });
     }
     return res.json(products);
-    res.send("hehe");
   } catch (error) {
     console.log(error);
     return res.status(500).json({

@@ -59,7 +59,7 @@ const variants = [
     size: "70",
     material: "",
     variantImage:
-      "https://www.ikea.com/sg/en/images/products/bekant-desk-linoleum-blue-black__0736416_pe740531_s5.jpg?f=xlhttps://www.ikea.com/sg/en/images/products/borgeby-coffee-table-black__0983032_pe815898_s5.jpg?f=xl",
+      "https://www.ikea.com/sg/en/images/products/borgeby-coffee-table-black__0983032_pe815898_s5.jpg?f=xl",
   },
   {
     id: generateShortUuid(),
