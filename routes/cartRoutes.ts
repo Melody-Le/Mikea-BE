@@ -11,7 +11,7 @@ import {
 const router = Router();
 
 router.get("/", authMiddleware, showCart);
-router.post("/create", authMiddleware, findOrCreateCart);
+// router.post("/create", authMiddleware, findOrCreateCart);
 //
 router.post("/add/:variantId", authMiddleware, addItemToCart);
 
