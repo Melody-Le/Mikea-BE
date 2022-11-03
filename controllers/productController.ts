@@ -41,7 +41,7 @@ export const showProducts: RequestHandler = async (req, res, next) => {
           },
           {
             model: Variant,
-            attributes: ["variantImage", "price", "qtyInStock"],
+            attributes: ["id", "variantImage", "price", "qtyInStock"],
           },
         ],
       });
