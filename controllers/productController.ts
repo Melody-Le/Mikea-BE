@@ -1,26 +1,102 @@
 import { RequestHandler } from "express";
 import db from "../models";
+import { where } from "sequelize";
 const { category: Category, product: Product, variant: Variant } = db;
+import { Op } from "sequelize";
 
 export const showProducts: RequestHandler = async (req, res, next) => {
+  const subCat = req.query?.subCat || "";
+  const parentCat = req.query?.parentCat || "";
+  const name = req.query?.name || "";
   try {
-    const products = await Product.findAll({
-      attributes: [
-        "productName",
-        "productSlug",
-        "productDescription",
-        "productImages",
-        "room",
-      ],
-      include: [
-        { model: Category, attributes: ["categoryLabel"] },
-        {
-          model: Variant,
-          attributes: ["id", "variantImage", "price", "qtyInStock"],
+    let products = null;
+    if (!subCat && !parentCat) {
+      products = await Product.findAll({
+        attributes: [
+          "productName",
+          "productSlug",
+          "productDescription",
+          "productImages",
+          "room",
+        ],
+        where: {
+          productName: { [Op.like]: "%" + name + "%" },
         },
-      ],
-    });
+        include: [
+          {
+            model: Category,
+            attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            include: {
+              model: Category,
+              as: "parentCategory",
+              required: false,
+              attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            },
+          },
+          {
+            model: Variant,
+            attributes: ["id", "variantImage", "price", "qtyInStock"],
+          },
+        ],
+      });
+    } else if (subCat) {
+      products = await Product.findAll({
+        attributes: [
+          "productName",
+          "productSlug",
+          "productDescription",
+          "productImages",
+          "room",
+        ],
+        include: [
+          {
+            model: Category,
+            where: { categorySlug: { [Op.like]: "%" + subCat + "%" } },
+            attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            include: {
+              model: Category,
+              as: "parentCategory",
+              required: false,
+              attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            },
+          },
+          {
+            model: Variant,
+            attributes: ["id", "variantImage", "price", "qtyInStock"],
+          },
+        ],
+      });
+    } else if (parentCat) {
+      products = await Product.findAll({
+        attributes: [
+          "productName",
+          "productSlug",
+          "productDescription",
+          "productImages",
+          "room",
+        ],
+        include: [
+          {
+            model: Category,
+
+            attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            include: {
+              model: Category,
+              as: "parentCategory",
+              required: false,
+              attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+              where: { categorySlug: { [Op.like]: "%" + parentCat + "%" } },
+            },
+          },
+          {
+            model: Variant,
+            attributes: ["id", "variantImage", "price", "qtyInStock"],
+          },
+        ],
+      });
+    }
     return res.json(products);
+    res.send("hehe");
   } catch (error) {
     console.log(error);
     return res.status(500).json({

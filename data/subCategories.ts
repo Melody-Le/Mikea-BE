@@ -51,7 +51,7 @@ const subCategories = [
     id: 13,
     categoryLabel: "Accent Lighting",
     categorySlug: "accent-lighting",
-    parentCategoryId: 2,
+    parentCategoryId: 6,
     categoryImg:
       "https://images.pexels.com/photos/945688/pexels-photo-945688.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
@@ -59,7 +59,7 @@ const subCategories = [
     id: 14,
     categoryLabel: "Wardrobe Lighting",
     categorySlug: "wardrobe-lighting",
-    parentCategoryId: 2,
+    parentCategoryId: 6,
     categoryImg:
       "https://www.ikea.com/sg/en/images/products/norrfly-led-lighting-strip-aluminium-colour__0798032_ph159815_s5.jpg?f=xl",
   },
