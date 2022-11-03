@@ -11,6 +11,7 @@ export const showProducts: RequestHandler = async (req, res, next) => {
   try {
     let products = null;
     if (!subCat && !parentCat) {
+      console.log("no filter");
       products = await Product.findAll({
         attributes: [
           "productName",
@@ -25,7 +26,12 @@ export const showProducts: RequestHandler = async (req, res, next) => {
         include: [
           {
             model: Category,
-            attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            attributes: [
+              "categoryLabel",
+              "categorySlug",
+              "categoryImg",
+              "parentCategoryId",
+            ],
             include: {
               model: Category,
               as: "parentCategory",
@@ -35,7 +41,7 @@ export const showProducts: RequestHandler = async (req, res, next) => {
           },
           {
             model: Variant,
-            attributes: ["id", "variantImage", "price", "qtyInStock"],
+            attributes: ["variantImage", "price", "qtyInStock"],
           },
         ],
       });
@@ -52,7 +58,12 @@ export const showProducts: RequestHandler = async (req, res, next) => {
           {
             model: Category,
             where: { categorySlug: { [Op.like]: "%" + subCat + "%" } },
-            attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            attributes: [
+              "categoryLabel",
+              "categorySlug",
+              "categoryImg",
+              "parentCategoryId",
+            ],
             include: {
               model: Category,
               as: "parentCategory",
@@ -67,6 +78,10 @@ export const showProducts: RequestHandler = async (req, res, next) => {
         ],
       });
     } else if (parentCat) {
+      const parentCatId = await Category.findOne({
+        where: { categorySlug: parentCat },
+        attributes: ["id"],
+      });
       products = await Product.findAll({
         attributes: [
           "productName",
@@ -78,14 +93,18 @@ export const showProducts: RequestHandler = async (req, res, next) => {
         include: [
           {
             model: Category,
-
-            attributes: ["categoryLabel", "categorySlug", "categoryImg"],
+            attributes: [
+              "categoryLabel",
+              "categorySlug",
+              "categoryImg",
+              "parentCategoryId",
+            ],
+            where: { parentCategoryId: parentCatId?.id },
             include: {
               model: Category,
               as: "parentCategory",
               required: false,
               attributes: ["categoryLabel", "categorySlug", "categoryImg"],
-              where: { categorySlug: { [Op.like]: "%" + parentCat + "%" } },
             },
           },
           {
