@@ -9,14 +9,15 @@ import db from "../models";
 const { user: User } = db;
 const { refreshToken: RefreshTokenModel } = db;
 interface JwtPayload {
-  email: string;
+  // email: string;
+  data: any;
 }
 const generatedAccessToken = (email: string): string => {
   try {
     const accessToken = jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 5,
-        email: email,
+        exp: Math.floor(Date.now() / 1000) + 60 * 500,
+        data: { email: email },
       },
       JWT_SECRET_ACCESS
     );
@@ -52,7 +53,7 @@ export const register: RequestHandler = async (req, res, next) => {
 };
 
 export const login: RequestHandler = async (req, res, next) => {
-  const errMsg = "Incorrect username or password";
+  const errMsg = "Incorrect Email or password";
   const { email, password } = req.body as UserAttributes;
 
   // Authenticated user:
@@ -89,6 +90,7 @@ export const login: RequestHandler = async (req, res, next) => {
 export const refresh: RequestHandler = async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
+    console.log(refreshToken);
     const token: RefreshTokenAttributes = await RefreshTokenModel.findOne({
       where: {
         token: refreshToken,
@@ -102,7 +104,7 @@ export const refresh: RequestHandler = async (req, res, next) => {
       JWT_SECRET_REFRESH
     ) as JwtPayload;
     if (verified) {
-      const accessToken = generatedAccessToken(verified.email);
+      const accessToken = generatedAccessToken(verified?.data?.email);
       return res.json({ accessToken });
     }
     // return res.status(401).json({ error: "Unable to verify refresh token" });

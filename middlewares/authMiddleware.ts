@@ -3,6 +3,10 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET_ACCESS } from "../utils/secrets";
 import db from "../models";
 const { user: User } = db;
+interface JwtPayload {
+  // email: string;
+  data: any;
+}
 
 export const authMiddleware: RequestHandler = async (req, res, next) => {
   // get Authentication header value
@@ -31,13 +35,13 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
   // set global var userAuth if JWT is valid
 
   try {
-    const verified = jwt.verify(token, JWT_SECRET_ACCESS);
+    const verified = jwt.verify(token, JWT_SECRET_ACCESS) as JwtPayload;
     if (!verified) {
       return res.status(401).json({
         message: "Invalid auth token",
       });
     } else {
-      res.locals.userAuth = verified;
+      res.locals.userAuth = verified?.data;
       let authUser = null;
       authUser = await User.findOne({
         attributes: ["id"],
