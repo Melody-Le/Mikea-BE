@@ -183,11 +183,20 @@ export const getLineItems: RequestHandler<
   ReqBody,
   ReqQuery
 > = async (req, res) => {
+  let user = null;
+  let userAuth = res.locals.userAuth;
+  if (!userAuth) {
+    return res.status(401);
+  }
   try {
+    const userCart = await Cart.findOne({
+      where: { userId: userAuth.userId },
+      attributes: ["id"],
+    });
     const json = req.query.q;
     const variantIds: ReqQuery = JSON.parse(json);
     const variants = await LineItem.findAll({
-      where: { variantId: variantIds },
+      where: { variantId: variantIds, cartId: userCart.id },
       attributes: ["qty"],
       include: {
         model: Variant,
