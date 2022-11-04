@@ -14,7 +14,7 @@ interface JwtPayload {
 const generatedAccessToken = (email: string): string => {
   const accessToken = jwt.sign(
     {
-      exp: Math.floor(Date.now() / 1000) + 60 * 5000,
+      exp: Math.floor(Date.now() / 1000) + 60 * 5,
       email: email,
     },
     JWT_SECRET_ACCESS

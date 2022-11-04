@@ -78,7 +78,6 @@ export const addItemToCart: RequestHandler = async (req, res, next) => {
     });
 
     if (lineItemCreated) {
-      console.log("==============================>add to cart");
       return res.json({ message: "Success to add cart" });
     }
     // If line item already exist => update qty instead:
@@ -92,7 +91,6 @@ export const addItemToCart: RequestHandler = async (req, res, next) => {
     // compare qty in lineItem with qtyInstock, if lineItemqty < qtyInstock => increase. If already same => return "Order Limit Reached"
     if (lineItem.qty < targetVariant.qtyInStock) {
       await LineItem.increment({ qty: +1 }, { where: { id: lineItem.id } });
-      console.log("increased");
       res.json({ message: "Success increase quantity in cart" });
     } else res.json({ message: "Order Limit Reached" });
   } catch (error) {
@@ -141,7 +139,6 @@ export const updateCartItem: RequestHandler = async (req, res, next) => {
           },
         }
       );
-      console.log("update lineItemQty");
       return res.json({ message: "Success to update cart" });
     }
   } catch (error) {
