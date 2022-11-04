@@ -2,6 +2,8 @@ import { RequestHandler } from "express";
 import db from "../models";
 import { where } from "sequelize";
 const { user: User } = db;
+import { UserAttributes } from "../models/user";
+import { isTypeNode } from "typescript";
 
 export const showProfile: RequestHandler = async (req, res, next) => {
   let user = null;
@@ -26,6 +28,7 @@ export const showProfile: RequestHandler = async (req, res, next) => {
     });
   }
 };
+
 export const editProfile: RequestHandler = async (req, res, next) => {
   let user = null;
   let userAuth = res.locals.userAuth;
@@ -33,13 +36,24 @@ export const editProfile: RequestHandler = async (req, res, next) => {
     return res.status(401);
   }
   try {
-    await User.update(
-      { ...req.body },
-      {
-        where: { email: userAuth.email },
-      }
-    );
-    return res.status(200).json("Profile edited");
+    const { phone, address, postalCode, username } = req.body;
+    if (
+      typeof phone === "number" &&
+      typeof address === "string" &&
+      typeof postalCode === "number" &&
+      typeof username === "string"
+    ) {
+      await User.update(
+        { ...req.body },
+        {
+          where: { email: userAuth.email },
+        }
+      );
+      return res.status(200).json("Profile edited");
+    }
+    return res.status(400).json({
+      error: "Failed validate",
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

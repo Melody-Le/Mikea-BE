@@ -9,7 +9,7 @@ import db from "../models";
 const { user: User } = db;
 const { refreshToken: RefreshTokenModel } = db;
 interface JwtPayload {
-  // email: string;
+  email: string;
   data: any;
 }
 const generatedAccessToken = (email: string): string => {
@@ -90,7 +90,6 @@ export const login: RequestHandler = async (req, res, next) => {
 export const refresh: RequestHandler = async (req, res, next) => {
   try {
     const { refreshToken } = req.body;
-    console.log(refreshToken);
     const token: RefreshTokenAttributes = await RefreshTokenModel.findOne({
       where: {
         token: refreshToken,
@@ -104,7 +103,7 @@ export const refresh: RequestHandler = async (req, res, next) => {
       JWT_SECRET_REFRESH
     ) as JwtPayload;
     if (verified) {
-      const accessToken = generatedAccessToken(verified?.data?.email);
+      const accessToken = generatedAccessToken(verified?.email);
       return res.json({ accessToken });
     }
     // return res.status(401).json({ error: "Unable to verify refresh token" });
