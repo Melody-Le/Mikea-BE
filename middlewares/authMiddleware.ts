@@ -29,25 +29,32 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
   }
 
   // set global var userAuth if JWT is valid
-  const verified = jwt.verify(token, JWT_SECRET_ACCESS);
-  if (verified) {
-    res.locals.userAuth = verified;
-    let authUser = null;
-    authUser = await User.findOne({
-      attributes: ["id"],
-      where: {
-        email: res.locals.userAuth.email,
-      },
-    });
-    if (!authUser) {
-      return res.status(404).json();
-    }
-    res.locals.userAuth.userId = authUser.id;
-    next();
-    return;
-  }
 
-  return res.status(401).json({
-    message: "Invalid auth token",
-  });
+  try {
+    const verified = jwt.verify(token, JWT_SECRET_ACCESS);
+    if (!verified) {
+      return res.status(401).json({
+        message: "Invalid auth token",
+      });
+    } else {
+      res.locals.userAuth = verified;
+      let authUser = null;
+      authUser = await User.findOne({
+        attributes: ["id"],
+        where: {
+          email: res.locals.userAuth.email,
+        },
+      });
+      if (!authUser) {
+        return res.status(404).json();
+      }
+      res.locals.userAuth.userId = authUser.id;
+      next();
+      return;
+    }
+  } catch (error) {
+    return res.status(401).json({
+      message: "Invalid auth token",
+    });
+  }
 };

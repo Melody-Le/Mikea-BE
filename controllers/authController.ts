@@ -12,15 +12,18 @@ interface JwtPayload {
   email: string;
 }
 const generatedAccessToken = (email: string): string => {
-  const accessToken = jwt.sign(
-    {
-      exp: Math.floor(Date.now() / 1000) + 60 * 5,
-      email: email,
-    },
-    JWT_SECRET_ACCESS
-  );
-
-  return accessToken;
+  try {
+    const accessToken = jwt.sign(
+      {
+        exp: Math.floor(Date.now() / 1000) + 60 * 5,
+        email: email,
+      },
+      JWT_SECRET_ACCESS
+    );
+    return accessToken;
+  } catch (error: any) {
+    return error.message;
+  }
 };
 
 export const register: RequestHandler = async (req, res, next) => {
@@ -70,7 +73,7 @@ export const login: RequestHandler = async (req, res, next) => {
     const accessToken = generatedAccessToken(user.email);
     const refreshToken = jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 240,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
         email: user.email,
       },
       JWT_SECRET_REFRESH
@@ -94,12 +97,16 @@ export const refresh: RequestHandler = async (req, res, next) => {
     if (!token)
       return res.status(401).json({ error: "Unable to verify refresh token" });
     // decnstructer
-    const verified = jwt.verify(refreshToken, JWT_SECRET_REFRESH) as JwtPayload;
+    const verified = jwt?.verify(
+      refreshToken,
+      JWT_SECRET_REFRESH
+    ) as JwtPayload;
     if (verified) {
       const accessToken = generatedAccessToken(verified.email);
       return res.json({ accessToken });
     }
-    return res.json({ accessToken: "random" });
+    // return res.status(401).json({ error: "Unable to verify refresh token" });
+    else return res.json({ accessToken: "random" });
   } catch (error) {
     console.log(error);
     return res.status(401).json({ error: "Unable to verify refresh token" });
