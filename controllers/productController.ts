@@ -3,6 +3,12 @@ import db from "../models";
 import { where } from "sequelize";
 const { category: Category, product: Product, variant: Variant } = db;
 import { Op } from "sequelize";
+type Params = {};
+type ResBody = {};
+type ReqBody = {};
+type ReqQuery = {
+  q: string;
+};
 
 export const showProducts: RequestHandler = async (req, res, next) => {
   const subCat = req.query?.subCat || "";

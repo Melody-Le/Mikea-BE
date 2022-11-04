@@ -7,6 +7,12 @@ const {
   variant: Variant,
   product: Product,
 } = db;
+type Params = {};
+type ResBody = {};
+type ReqBody = {};
+type ReqQuery = {
+  q: string;
+};
 
 export const findOrCreateCart: RequestHandler = async (req, res, next) => {
   let userAuth = res.locals.userAuth;
@@ -168,6 +174,35 @@ export const removeFromCart: RequestHandler = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({
       error: "Failed to remove item from cart",
+    });
+  }
+};
+export const getLineItems: RequestHandler<
+  Params,
+  ResBody,
+  ReqBody,
+  ReqQuery
+> = async (req, res) => {
+  try {
+    const json = req.query.q;
+    const variantIds: ReqQuery = JSON.parse(json);
+    const variants = await LineItem.findAll({
+      where: { variantId: variantIds },
+      attributes: ["qty"],
+      include: {
+        model: Variant,
+        attributes: ["id", "variantImage", "price", "variantDescription"],
+        include: {
+          model: Product,
+          attributes: ["productName"],
+        },
+      },
+    });
+    return res.json(variants);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to fetch variants from database",
     });
   }
 };

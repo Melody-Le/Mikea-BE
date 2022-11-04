@@ -3,7 +3,6 @@ import db from "../models";
 const { category: Category } = db;
 
 export const getCategories: RequestHandler = async (req, res, next) => {
-  console.log("category");
   try {
     const topCategories = await Category.findAll({
       where: {
