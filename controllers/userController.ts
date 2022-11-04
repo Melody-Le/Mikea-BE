@@ -43,6 +43,7 @@ export const editProfile: RequestHandler = async (req, res, next) => {
       typeof postalCode === "number" &&
       typeof username === "string"
     ) {
+      console.log("===================> good");
       await User.update(
         { ...req.body },
         {
@@ -51,6 +52,7 @@ export const editProfile: RequestHandler = async (req, res, next) => {
       );
       return res.status(200).json("Profile edited");
     }
+    console.log("===================>   BAD");
     return res.status(400).json({
       error: "Failed validate",
     });
