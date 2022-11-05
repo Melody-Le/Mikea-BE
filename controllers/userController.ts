@@ -38,10 +38,11 @@ export const editProfile: RequestHandler = async (req, res, next) => {
   try {
     const { phone, address, postalCode, username } = req.body;
     if (
-      typeof phone === "number" &&
-      typeof address === "string" &&
-      typeof postalCode === "number" &&
-      typeof username === "string"
+      // typeof phone === "number" &&
+      // typeof address === "string" &&
+      // typeof postalCode === "number" &&
+      // typeof username === "string"
+      1
     ) {
       console.log("===================> good");
       await User.update(

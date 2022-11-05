@@ -29,12 +29,16 @@ tsc -w
   - Create the `.env` file in the root , with the content below:
 
 ```
-PORT= 8800
+PORT= yourInput
 DB_USER = yourinput
 DB_NAME = yourinput
 DB_PASS = yourinput
 JWT_SECRET_ACCESS = yourinput
 JWT_SECRET_REFRESH = yourinput
+DB_DIALECT=postgres
+FRONT_END_URL=yourfrontendlink
+CORS_ORIGIN=yourChoice
+
 ```
 
 ## Set up sequelize ORM :
@@ -115,4 +119,5 @@ npx sequelize db:seed --seed 20221024080339-lineitem.js
 
 # Deploy
 
-- I stuck here
+- [Backend link](https://github.com/Melody-Le/Mikea-BE)
+- [Mikea Fronend - Demo Link](https://mikea.netlify.app/)
