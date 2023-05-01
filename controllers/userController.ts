@@ -36,27 +36,30 @@ export const editProfile: RequestHandler = async (req, res, next) => {
     return res.status(401);
   }
   try {
-    const { phone, address, postalCode, username } = req.body;
+    const { address, username } = req.body;
+    const phone = Number(req.body.phone);
+    const postalCode = Number(req.body.postalCode);
     if (
-      // typeof phone === "number" &&
-      // typeof address === "string" &&
-      // typeof postalCode === "number" &&
-      // typeof username === "string"
-      1
+      typeof phone === "number" &&
+      typeof address === "string" &&
+      typeof postalCode === "number" &&
+      typeof username === "string"
     ) {
       console.log("===================> good");
+
       await User.update(
-        { ...req.body },
+        { phone, address, postalCode },
         {
           where: { email: userAuth.email },
         }
       );
       return res.status(200).json("Profile edited");
+    } else {
+      console.log("===================>   BAD");
+      return res.status(400).json({
+        error: "Failed validate",
+      });
     }
-    console.log("===================>   BAD");
-    return res.status(400).json({
-      error: "Failed validate",
-    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
