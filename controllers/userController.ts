@@ -5,6 +5,26 @@ const { user: User } = db;
 import { UserAttributes } from "../models/user";
 import { isTypeNode } from "typescript";
 
+export const showUsers: RequestHandler = async (req, res, next) => {
+  console.log("haha");
+
+  try {
+    let users = [];
+    users = await User.findAll();
+    // console.log(users.every((user: any) => user instanceof User));
+    console.log("haha");
+    if (!users) {
+      return res.status(404).json();
+    }
+    return res.json(users);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to fetch users Profile from database",
+    });
+  }
+};
+
 export const showProfile: RequestHandler = async (req, res, next) => {
   let user = null;
   let userAuth = res.locals.userAuth;

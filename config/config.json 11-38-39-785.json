@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "dcuyvymk",
+    "password": "VnM0zecatMFQosVE4t-v7mPjL7Nt-YQ6",
+    "database": "dcuyvymk",
+    "host": "babar.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "dcuyvymk",
+    "password": "VnM0zecatMFQosVE4t-v7mPjL7Nt-YQ6",
+    "database": "dcuyvymk",
+    "host": "babar.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "dcuyvymk",
+    "password": "VnM0zecatMFQosVE4t-v7mPjL7Nt-YQ6",
+    "database": "dcuyvymk",
+    "host": "babar.db.elephantsql.com",
+    "dialect": "postgres"
+  }
+}
