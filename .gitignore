@@ -3,3 +3,4 @@ node_modules/
 command.txt
 .DS_Store
 dist
+migrations old

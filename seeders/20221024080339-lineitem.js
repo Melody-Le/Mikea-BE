@@ -7,13 +7,13 @@ module.exports = {
       {
         id: 1,
         cartId: 1,
-        variantId: "1cStR4zmynLHqUrA",
+        variantId: "1Li8tcOQAsYAhweJ",
         qty: 2,
       },
       {
         id: 2,
         cartId: 1,
-        variantId: "fbDlurdetEvqyXXH",
+        variantId: "1X6gmOBx9gVmh34t",
         qty: 2,
       },
     ]);

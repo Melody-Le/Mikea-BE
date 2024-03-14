@@ -37,7 +37,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       phone: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        unique: true,
+        unique: false,
         validate: {
           isNumeric: true,
         },

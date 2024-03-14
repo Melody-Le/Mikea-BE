@@ -28,6 +28,7 @@ const generatedAccessToken = (email: string): string => {
 };
 
 export const register: RequestHandler = async (req, res, next) => {
+  console.log(req.body);
   let { email, password, username } = req.body as UserAttributes;
   const passHash = await bcrypt.hash(password, 10);
   if (!username) {
