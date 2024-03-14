@@ -6,6 +6,7 @@ import categoryRoutes from "./routes/categoryRoutes";
 import productRoutes from "./routes/productRoutes";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
+import usersRoutes from "./routes/usersRoutes";
 import cartRoutes from "./routes/cartRoutes";
 import orderRoutes from "./routes/orderRoutes";
 
@@ -40,6 +41,7 @@ app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/users", usersRoutes);
 app.use("/api/v1/cart", cartRoutes);
 app.use("/api/v1/orders", orderRoutes);
 

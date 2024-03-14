@@ -5,14 +5,11 @@ const { user: User } = db;
 import { UserAttributes } from "../models/user";
 import { isTypeNode } from "typescript";
 
-export const showUsers: RequestHandler = async (req, res, next) => {
-  console.log("haha");
-
+export const showAllUsers: RequestHandler = async (req, res, next) => {
+  console.log("showAllUser");
   try {
     let users = [];
     users = await User.findAll();
-    // console.log(users.every((user: any) => user instanceof User));
-    console.log("haha");
     if (!users) {
       return res.status(404).json();
     }
@@ -25,18 +22,20 @@ export const showUsers: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const showProfile: RequestHandler = async (req, res, next) => {
+export const showUserById: RequestHandler = async (req, res, next) => {
   let user = null;
-  let userAuth = res.locals.userAuth;
-  if (!userAuth) {
-    return res.status(401);
-  }
+  // let userAuth = res.locals.userAuth;
+  // if (!userAuth) {
+  //   return res.status(401);
+  // }
+  const { id } = req.params;
   try {
-    user = await User.findOne({
-      where: {
-        email: userAuth.email,
-      },
-    });
+    // user = await User.findOne({
+    //   where: {
+    //     email: userAuth.email,
+    //   },
+    // });
+    user = await User.findByPk(id);
     if (!user) {
       return res.status(404).json();
     }
@@ -49,7 +48,7 @@ export const showProfile: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const editProfile: RequestHandler = async (req, res, next) => {
+export const editUserById: RequestHandler = async (req, res, next) => {
   let user = null;
   let userAuth = res.locals.userAuth;
   if (!userAuth) {
@@ -87,7 +86,7 @@ export const editProfile: RequestHandler = async (req, res, next) => {
     });
   }
 };
-export const deleteAccount: RequestHandler = async (req, res, next) => {
+export const deleteUserById: RequestHandler = async (req, res, next) => {
   let user = null;
   let userAuth = res.locals.userAuth;
   if (!userAuth) {

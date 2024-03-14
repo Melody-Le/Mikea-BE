@@ -4,9 +4,12 @@ import {
   showProfile,
   editProfile,
   deleteAccount,
+  showUsers,
 } from "../controllers/userController";
 
 const router = Router();
+
+router.get("/all", showUsers);
 
 router.get("/", authMiddleware, showProfile);
 
