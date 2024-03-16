@@ -50,10 +50,6 @@ export const editUserById: RequestHandler = async (req, res, next) => {
     const { address, username } = req.body;
     const phone = Number(req.body.phone);
     const postalCode = Number(req.body.postalCode);
-    // console.log(typeof phone);
-    // console.log(typeof address);
-    // console.log(typeof postalCode);
-    // console.log(typeof username);
     if (
       typeof phone === "number" &&
       // typeof address === "string" &&
@@ -84,13 +80,10 @@ export const editUserById: RequestHandler = async (req, res, next) => {
   }
 };
 export const deleteUserById: RequestHandler = async (req, res, next) => {
-  let user = null;
-  let userAuth = res.locals.userAuth;
-  if (!userAuth) {
-    return res.status(401);
-  }
+  const { id } = req.params;
+
   try {
-    await User.destroy({ where: { email: userAuth.email } });
+    await User.destroy({ where: { id: id } });
     return res.status(200).json("Success delete account");
   } catch (error) {
     console.log(error);

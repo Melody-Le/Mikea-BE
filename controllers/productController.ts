@@ -20,6 +20,7 @@ export const showProducts: RequestHandler = async (req, res, next) => {
       console.log("no filter");
       products = await Product.findAll({
         attributes: [
+          "id",
           "productName",
           "productSlug",
           "productDescription",
@@ -54,6 +55,7 @@ export const showProducts: RequestHandler = async (req, res, next) => {
     } else if (subCat) {
       products = await Product.findAll({
         attributes: [
+          "id",
           "productName",
           "productSlug",
           "productDescription",
@@ -90,6 +92,7 @@ export const showProducts: RequestHandler = async (req, res, next) => {
       });
       products = await Product.findAll({
         attributes: [
+          "id",
           "productName",
           "productSlug",
           "productDescription",
@@ -174,6 +177,46 @@ export const showProductVariants: RequestHandler = async (req, res, next) => {
 };
 
 export const showProductVariant: RequestHandler = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const variant = await Variant.findByPk(id);
+    return res.json(variant);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to fetch variants from database",
+    });
+  }
+};
+
+export const showProductById: RequestHandler = async (req, res, next) => {
+  console.log("^^^^^^^^^--------------Show product By Id");
+  try {
+    const { id } = req.params;
+    // const product = await Product.findOne({
+    //   where: {
+    //     id,
+    //   },
+    //   include: [
+    //     { model: Category, attributes: ["categoryLabel"] },
+    //     {
+    //       model: Variant,
+    //     },
+    //   ],
+    // });
+    const product = await Product.findByPk(id);
+    return res.json(product);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to fetch product from database",
+    });
+  }
+};
+
+export const editProductById: RequestHandler = async (req, res, next) => {
+  console.log(req.body);
+  console.log(req.params);
   try {
     const { id } = req.params;
     const variant = await Variant.findByPk(id);

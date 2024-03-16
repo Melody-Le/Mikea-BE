@@ -12,6 +12,7 @@ interface JwtPayload {
   email: string;
   data: any;
 }
+
 const generatedAccessToken = (email: string): string => {
   try {
     const accessToken = jwt.sign(
