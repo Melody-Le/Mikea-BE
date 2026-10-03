@@ -64,7 +64,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isAlpha: true,
           len: [3, 10],
         },
       },
@@ -77,7 +76,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     {
       sequelize,
       modelName: "user",
-    }
+    },
   );
   return User;
 };

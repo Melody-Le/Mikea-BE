@@ -3,17 +3,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("lineItems", [
+    const [variants] = await queryInterface.sequelize.query(
+      `SELECT id FROM "variants" ORDER BY "productId" LIMIT 2`,
+    );
+
+    await queryInterface.bulkInsert("lineItems", [
       {
         id: 1,
         cartId: 1,
-        variantId: "1cStR4zmynLHqUrA",
+        variantId: variants[0].id,
         qty: 2,
       },
       {
         id: 2,
         cartId: 1,
-        variantId: "fbDlurdetEvqyXXH",
+        variantId: variants[1].id,
         qty: 2,
       },
     ]);

@@ -19,7 +19,7 @@ const generatedAccessToken = (email: string): string => {
         exp: Math.floor(Date.now() / 1000) + 60 * 500,
         data: { email: email },
       },
-      JWT_SECRET_ACCESS
+      JWT_SECRET_ACCESS,
     );
     return accessToken;
   } catch (error: any) {
@@ -77,7 +77,7 @@ export const login: RequestHandler = async (req, res, next) => {
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
         email: user.email,
       },
-      JWT_SECRET_REFRESH
+      JWT_SECRET_REFRESH,
     );
     await RefreshTokenModel.create({ token: refreshToken });
     res.json({ accessToken, refreshToken });
@@ -100,7 +100,7 @@ export const refresh: RequestHandler = async (req, res, next) => {
     // decnstructer
     const verified = jwt?.verify(
       refreshToken,
-      JWT_SECRET_REFRESH
+      JWT_SECRET_REFRESH,
     ) as JwtPayload;
     if (verified) {
       const accessToken = generatedAccessToken(verified?.email);
